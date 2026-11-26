@@ -39,6 +39,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Loads the account's profile and records, and makes them this device's progress.
     const load = async (next: User | null) => {
+      // A stale effect instance (React Strict Mode mounts this effect twice in dev) must not
+      // claim `loadedFor` before bailing out, or it blocks the live instance's own call below.
+      if (!alive) return;
       const id = next?.id ?? null;
       if (loadedFor.current === id) return;
       loadedFor.current = id;
