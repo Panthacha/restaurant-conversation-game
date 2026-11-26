@@ -4,64 +4,215 @@
     "name": "Sakura Sushi",
     "cuisine": "Japanese",
     "difficulty": 1,
-    "image": "/assets/food/r1.jpg",
+    "image": "/assets/food/r1.webp",
     "themeColors": {
       "primary": "bg-white",
       "accent": "text-red-500 bg-red-50 border-red-100",
       "glow": "hover:shadow-[0_10px_40px_rgba(239,68,68,0.15)]"
     },
-    "description": "Master formal ordering and dietary requirements in a serene omakase setting."
+    "description": "Master formal ordering and dietary requirements in a serene omakase setting.",
+    "customers": [
+      {
+        "name": "Daniel",
+        "spriteColumn": 2,
+        "gender": "male",
+        "dialogue": "r1"
+      },
+      {
+        "name": "Emma",
+        "spriteColumn": 1,
+        "gender": "female",
+        "dialogue": "r1-emma"
+      },
+      {
+        "name": "Mrs. Sato",
+        "spriteColumn": 3,
+        "gender": "female",
+        "dialogue": "r1-sato"
+      }
+    ],
+    "kitchen": "sushi",
+    "scene": {
+      "dining": "/assets/food/sushi/5.webp",
+      "counter": "/assets/food/sushi/6.webp",
+      "mat": {
+        "image": "/assets/food/sushi/8.webp",
+        "size": "300% 200%",
+        "position": "0% 100%"
+      },
+      "plate": {
+        "image": "/assets/food/sushi/8.webp",
+        "size": "300% 200%",
+        "position": "50% 100%"
+      }
+    }
   },
   {
     "id": "r2",
     "name": "Bella Trattoria",
     "cuisine": "Italian",
     "difficulty": 2,
-    "image": "/assets/food/r2.jpg",
+    "image": "/assets/food/r2.webp",
     "themeColors": {
       "primary": "bg-white",
       "accent": "text-amber-600 bg-amber-50 border-amber-100",
       "glow": "hover:shadow-[0_10px_40px_rgba(245,158,11,0.15)]"
     },
-    "description": "Ask for recommendations and describe classic Mediterranean menu items."
+    "description": "Ask for recommendations and describe classic Mediterranean menu items.",
+    "kitchen": "italian",
+    "scene": {
+      "dining": "/assets/food/italian/dining.webp",
+      "counter": "/assets/food/italian/counter.webp",
+      "mat": {
+        "image": "/assets/food/italian/cloth.webp",
+        "size": "contain",
+        "position": "center"
+      },
+      "plate": {
+        "image": "/assets/food/italian/board.webp",
+        "size": "contain",
+        "position": "center"
+      }
+    },
+    "customers": [
+      {
+        "name": "Sofia",
+        "spriteColumn": 1,
+        "gender": "female",
+        "dialogue": "r2"
+      },
+      {
+        "name": "Nonna Lucia",
+        "spriteColumn": 3,
+        "gender": "female",
+        "dialogue": "r2-lucia"
+      }
+    ]
   },
   {
     "id": "r3",
     "name": "Spicy Market",
-    "cuisine": "Thai Street",
+    "cuisine": "Thai Som Tam",
     "difficulty": 3,
-    "image": "/assets/food/r3.jpg",
+    "image": "/assets/food/r3.webp",
     "themeColors": {
       "primary": "bg-white",
       "accent": "text-emerald-600 bg-emerald-50 border-emerald-100",
       "glow": "hover:shadow-[0_10px_40px_rgba(16,185,129,0.15)]"
     },
-    "description": "Customize vivid orders and negotiate spice levels with local vendors."
+    "description": "Order papaya salad, choose a spice level by the number of chilies, and handle a food allergy.",
+    "kitchen": "thai",
+    "scene": {
+      "dining": "/assets/food/thai/dining.webp",
+      "counter": "/assets/food/thai/counter.webp",
+      "mat": {
+        "image": "/assets/food/thai/mat.webp",
+        "size": "contain",
+        "position": "center"
+      },
+      "plate": {
+        "image": "/assets/food/thai/plate.svg",
+        "size": "contain",
+        "position": "center"
+      }
+    },
+    "customers": [
+      {
+        "name": "Mr. Somchai",
+        "spriteColumn": 2,
+        "gender": "male",
+        "dialogue": "r3"
+      },
+      {
+        "name": "Mai",
+        "spriteColumn": 1,
+        "gender": "female",
+        "dialogue": "r3-mai"
+      }
+    ]
   },
   {
     "id": "r4",
     "name": "Lumière Café",
     "cuisine": "Dessert",
     "difficulty": 4,
-    "image": "/assets/food/r4.jpg",
+    "image": "/assets/food/r4.webp",
     "themeColors": {
       "primary": "bg-white",
       "accent": "text-purple-500 bg-purple-50 border-purple-100",
       "glow": "hover:shadow-[0_10px_40px_rgba(168,85,247,0.15)]"
     },
-    "description": "Engage in elegant small talk and inquire about seasonal pastries."
+    "description": "Engage in elegant small talk and inquire about seasonal pastries.",
+    "kitchen": "cafe",
+    "scene": {
+      "dining": "/assets/food/cafe/dining.webp",
+      "counter": "/assets/food/cafe/counter.webp",
+      "mat": {
+        "image": "/assets/food/cafe/mat.webp",
+        "size": "contain",
+        "position": "center"
+      },
+      "plate": {
+        "image": "/assets/food/cafe/plate.webp",
+        "size": "contain",
+        "position": "center"
+      }
+    },
+    "customers": [
+      {
+        "name": "Mrs. Dubois",
+        "spriteColumn": 3,
+        "gender": "female",
+        "dialogue": "r4"
+      },
+      {
+        "name": "Chloe",
+        "spriteColumn": 1,
+        "gender": "female",
+        "dialogue": "r4-chloe"
+      }
+    ]
   },
   {
     "id": "r5",
     "name": "Route 66",
     "cuisine": "American Diner",
     "difficulty": 5,
-    "image": "/assets/food/r5.jpg",
+    "image": "/assets/food/r5.webp",
     "themeColors": {
       "primary": "bg-white",
       "accent": "text-sky-500 bg-sky-50 border-sky-100",
       "glow": "hover:shadow-[0_10px_40px_rgba(14,165,233,0.15)]"
     },
-    "description": "Navigate casual, fast-paced ordering and clarify mistakes smoothly."
+    "description": "Navigate casual, fast-paced ordering and clarify mistakes smoothly.",
+    "kitchen": "diner",
+    "scene": {
+      "dining": "/assets/food/diner/dining.webp",
+      "counter": "/assets/food/diner/counter.webp",
+      "mat": {
+        "image": "/assets/food/diner/mat.webp",
+        "size": "contain",
+        "position": "center"
+      },
+      "plate": {
+        "image": "/assets/food/diner/plate.webp",
+        "size": "contain",
+        "position": "center"
+      }
+    },
+    "customers": [
+      {
+        "name": "Jess",
+        "spriteColumn": 1,
+        "gender": "female",
+        "dialogue": "r5"
+      },
+      {
+        "name": "Hank",
+        "spriteColumn": 2,
+        "gender": "male",
+        "dialogue": "r5-hank"
+      }
+    ]
   }
 ]

@@ -1,22 +1,307 @@
 {
   "salmon_nigiri": {
     "targetDishName": "Salmon Nigiri",
-    "correctSequence": ["rice", "wasabi", "salmon"]
+    "correctSequence": [
+      "rice",
+      "wasabi",
+      "salmon"
+    ],
+    "final": {
+      "sprite": [
+        0,
+        3
+      ],
+      "count": 2
+    }
   },
   "tuna_nigiri": {
     "targetDishName": "Tuna Nigiri",
-    "correctSequence": ["rice", "wasabi", "tuna"]
-  },
-  "ebi_nigiri": {
-    "targetDishName": "Shrimp (Ebi) Nigiri",
-    "correctSequence": ["rice", "wasabi", "ebi"]
+    "correctSequence": [
+      "rice",
+      "wasabi",
+      "tuna"
+    ],
+    "final": {
+      "sprite": [
+        1,
+        3
+      ],
+      "count": 2
+    }
   },
   "ikura_gunkan": {
     "targetDishName": "Ikura Gunkan",
-    "correctSequence": ["rice", "nori_wrap", "ikura"]
+    "correctSequence": [
+      "rice",
+      "nori_wrap",
+      "ikura"
+    ],
+    "final": {
+      "image": "/assets/food/sushi/steps/gunkan-ikura.webp",
+      "count": 2
+    }
   },
-  "tamago_nigiri": {
-    "targetDishName": "Tamago Nigiri",
-    "correctSequence": ["rice", "tamago", "nori_flat"]
+  "tuna_nigiri_plain": {
+    "targetDishName": "Tuna Nigiri (No Wasabi)",
+    "correctSequence": [
+      "rice",
+      "tuna"
+    ],
+    "final": {
+      "sprite": [
+        1,
+        3
+      ],
+      "count": 2
+    }
+  },
+  "veggie_roll": {
+    "targetDishName": "Avocado Cucumber Roll",
+    "correctSequence": [
+      "nori_flat",
+      "rice_sheet",
+      "avocado",
+      "cucumber",
+      "roll",
+      "cut"
+    ],
+    "final": {
+      "sprite": [
+        2,
+        3
+      ],
+      "count": 6
+    }
+  },
+  "salmon_roll": {
+    "targetDishName": "Salmon Roll",
+    "correctSequence": [
+      "nori_flat",
+      "rice_sheet",
+      "salmon",
+      "roll",
+      "cut"
+    ],
+    "final": {
+      "sprite": [
+        3,
+        3
+      ],
+      "count": 6
+    }
+  },
+  "pizza_margherita": {
+    "targetDishName": "Margherita Pizza",
+    "correctSequence": [
+      "dough",
+      "knead",
+      "stretch",
+      "tomato_sauce",
+      "mozzarella",
+      "basil",
+      "bake",
+      "cut"
+    ],
+    "final": {
+      "image": "/assets/food/italian/pizza-margherita-cut.webp",
+      "count": 1
+    }
+  },
+  "pizza_funghi": {
+    "targetDishName": "Mushroom Pizza",
+    "correctSequence": [
+      "dough",
+      "knead",
+      "stretch",
+      "tomato_sauce",
+      "mozzarella",
+      "mushroom",
+      "bake",
+      "cut"
+    ],
+    "final": {
+      "image": "/assets/food/italian/pizza-funghi-cut.webp",
+      "count": 1
+    }
+  },
+  "spaghetti_pomodoro": {
+    "targetDishName": "Spaghetti Pomodoro",
+    "correctSequence": [
+      "spaghetti",
+      "boil",
+      "tomato_sauce",
+      "toss_pasta",
+      "basil"
+    ],
+    "final": {
+      "image": "/assets/food/italian/spaghetti-pomodoro.webp",
+      "count": 1
+    }
+  },
+  "spaghetti_parmesan": {
+    "targetDishName": "Parmesan Spaghetti",
+    "correctSequence": [
+      "spaghetti",
+      "boil",
+      "tomato_sauce",
+      "toss_pasta",
+      "parmesan",
+      "basil"
+    ],
+    "final": {
+      "image": "/assets/food/italian/spaghetti-parmesan.webp",
+      "count": 1
+    }
+  },
+  "macaron_tower": {
+    "targetDishName": "Berry Macaron Tower",
+    "correctSequence": [
+      "macaron_pink",
+      "macaron_green",
+      "macaron_yellow",
+      "berries"
+    ],
+    "final": {
+      "image": "/assets/food/cafe/final-macaron-tower.webp",
+      "count": 1,
+      "size": 85
+    }
+  },
+  "pancakes_strawberry": {
+    "targetDishName": "Strawberry Pancakes",
+    "correctSequence": [
+      "batter",
+      "flip",
+      "batter",
+      "flip",
+      "butter",
+      "syrup",
+      "strawberries"
+    ],
+    "final": {
+      "image": "/assets/food/cafe/final-pancakes-strawberry.webp",
+      "count": 1
+    }
+  },
+  "pancakes_blueberry": {
+    "targetDishName": "Blueberry Pancakes",
+    "correctSequence": [
+      "batter",
+      "flip",
+      "batter",
+      "flip",
+      "butter",
+      "syrup",
+      "blueberries"
+    ],
+    "final": {
+      "image": "/assets/food/cafe/final-pancakes-blueberry.webp",
+      "count": 1
+    }
+  },
+  "cheeseburger": {
+    "targetDishName": "Classic Cheeseburger",
+    "correctSequence": [
+      "bun_bottom",
+      "patty_raw",
+      "season",
+      "grill",
+      "cheese",
+      "lettuce",
+      "tomato",
+      "bun_top"
+    ],
+    "final": {
+      "image": "/assets/food/diner/final-cheeseburger.webp",
+      "count": 1,
+      "size": 118
+    }
+  },
+  "cheeseburger_no_lettuce": {
+    "targetDishName": "Cheeseburger, No Lettuce",
+    "correctSequence": [
+      "bun_bottom",
+      "patty_raw",
+      "season",
+      "grill",
+      "cheese",
+      "tomato",
+      "bun_top"
+    ],
+    "final": {
+      "image": "/assets/food/diner/final-cheeseburger-no-lettuce.webp",
+      "count": 1,
+      "size": 118
+    }
+  },
+  "fries": {
+    "targetDishName": "French Fries",
+    "correctSequence": [
+      "potato",
+      "peel",
+      "cut",
+      "fry",
+      "salt"
+    ],
+    "final": {
+      "image": "/assets/food/diner/final-fries.webp",
+      "count": 1,
+      "size": 100
+    }
+  },
+  "fries_no_salt": {
+    "targetDishName": "French Fries, No Salt",
+    "correctSequence": [
+      "potato",
+      "peel",
+      "cut",
+      "fry"
+    ],
+    "final": {
+      "image": "/assets/food/diner/final-fries-no-salt.webp",
+      "count": 1,
+      "size": 100
+    }
+  },
+  "som_tam_poo": {
+    "targetDishName": "Som Tam Poo (Thai Spicy)",
+    "correctSequence": [
+      "garlic",
+      "chili",
+      "chili",
+      "chili",
+      "pound",
+      "cherry_tomato",
+      "salted_crab",
+      "fish_sauce",
+      "lime",
+      "papaya",
+      "toss"
+    ],
+    "final": {
+      "image": "/assets/food/thai/som-tam-poo.webp",
+      "count": 1,
+      "size": 120
+    }
+  },
+  "som_tam_thai_no_peanuts": {
+    "targetDishName": "Som Tam Thai, No Peanuts",
+    "correctSequence": [
+      "garlic",
+      "chili",
+      "pound",
+      "cherry_tomato",
+      "dried_shrimp",
+      "palm_sugar",
+      "fish_sauce",
+      "lime",
+      "papaya",
+      "toss"
+    ],
+    "final": {
+      "image": "/assets/food/thai/som-tam-thai-no-peanuts.webp",
+      "count": 1,
+      "size": 120
+    }
   }
 }
