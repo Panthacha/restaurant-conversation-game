@@ -1,3 +1,5 @@
+// A plain Node (CommonJS) tool script, run with `node remove_bg.js`, so it loads modules with require.
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { removeBackground } = require('@imgly/background-removal-node');
 const fs = require('fs');
 const path = require('path');
