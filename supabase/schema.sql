@@ -191,10 +191,13 @@ create or replace function public.leaderboard(p_classroom text default null)
 returns table (user_id uuid, display_name text, avatar text, classroom text, stars integer, points integer, levels_done integer)
 language sql stable security definer set search_path = ''
 as $$
+  -- One row per (user, level): the best attempt as a whole (most stars, then highest score),
+  -- so stars and score always come from the same attempt instead of mixing each field's best
+  -- across different attempts (which could show a stars/score combo no single attempt earned).
   with best as (
-    select a.user_id, a.level_id, max(a.stars) as stars, max(a.score) as score
+    select distinct on (a.user_id, a.level_id) a.user_id, a.level_id, a.stars, a.score
     from public.level_attempts a
-    group by a.user_id, a.level_id
+    order by a.user_id, a.level_id, a.stars desc, a.score desc
   ), levels as (
     select b.user_id, sum(b.stars)::int as stars, sum(b.score)::int as score, (count(*) filter (where b.stars > 0))::int as levels_done
     from best b

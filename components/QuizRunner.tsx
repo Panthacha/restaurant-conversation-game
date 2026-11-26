@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, Check, X, ChevronRight, Lightbulb } from "lucide-react";
 import type { Question } from "@/lib/types";
@@ -40,13 +40,20 @@ export default function QuizRunner({ questions, seed, mode, onFinish }: { questi
     } else sfx.pop();
   };
 
+  // A held key or a fast double-click can fire this twice before React re-renders; a ref (unlike
+  // state) blocks the second call right away instead of after the next render.
+  const advancing = useRef(false);
   const next = () => {
-    if (picked === null || !q || !shown) return;
+    if (picked === null || !q || !shown || advancing.current) return;
+    advancing.current = true;
     const all = [...answers, { id: q.id, choice: shown.choices[picked], correct: picked === shown.answer }];
     setAnswers(all);
     setPicked(null);
     if (index + 1 >= questions.length) onFinish(all);
-    else setIndex(index + 1);
+    else {
+      setIndex(index + 1);
+      advancing.current = false;
+    }
   };
 
   useEffect(() => {
