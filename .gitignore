@@ -37,6 +37,9 @@ yarn-error.log*
 # vocabulary bank (Oxford 3000/5000 + Cambridge B1 lists): kept locally, not published
 คลังคำศัพท์*.xlsx
 
+# Office lock files (created while a file is open in Excel/Word)
+~$*
+
 # vercel
 .vercel
 
