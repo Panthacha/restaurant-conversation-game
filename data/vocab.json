@@ -1,0 +1,1134 @@
+[
+  {
+    "word": "familiar with",
+    "th": "คุ้นเคยกับ, รู้จักดี",
+    "meaning": "knowing something well because you have seen or used it before",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Thank you. I'm quite hungry, but I'm not very familiar with Japanese food. What do you recommend?"
+  },
+  {
+    "word": "recommend",
+    "th": "แนะนำ",
+    "meaning": "to suggest something because you think it is good",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "v.",
+    "example": "Thank you. I'm quite hungry, but I'm not very familiar with Japanese food. What do you recommend?"
+  },
+  {
+    "word": "set",
+    "th": "อาหารชุด",
+    "meaning": "a meal with several dishes served together for one price",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "v., n.",
+    "example": "Our Salmon Nigiri Set is very popular. It's fresh and delicious."
+  },
+  {
+    "word": "exactly",
+    "th": "ตรง ๆ, แน่ชัด (ใช้ถามให้ตอบให้ชัด)",
+    "meaning": "used to ask for more detail or a clear answer",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "adv.",
+    "example": "Ikura? I've never heard of it. What is it exactly?"
+  },
+  {
+    "word": "try something new",
+    "th": "ลองสิ่งใหม่",
+    "meaning": "to do or eat something for the first time",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Interesting! I'd like to try something new. I'll have the Ikura Gunkan, please."
+  },
+  {
+    "word": "vegetarian",
+    "th": "คนกินมังสวิรัติ",
+    "meaning": "a person who does not eat meat or fish",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "n., adj.",
+    "example": "Thank you for asking! Actually, I'm vegetarian, so I don't eat fish or meat."
+  },
+  {
+    "word": "looking forward to",
+    "th": "ตั้งตารอ",
+    "meaning": "feeling happy and excited about something that will happen",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "Thank you. I'm looking forward to it."
+  },
+  {
+    "word": "paste",
+    "th": "เนื้อบดละเอียดข้น ๆ",
+    "meaning": "a soft, thick mixture",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Is the green paste spicy? I'm not good with spicy food."
+  },
+  {
+    "word": "spicy",
+    "th": "เผ็ด",
+    "meaning": "having a hot, strong taste that burns your mouth a little",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "adj.",
+    "example": "Is the green paste spicy? I'm not good with spicy food."
+  },
+  {
+    "word": "kind",
+    "th": "ใจดี",
+    "meaning": "friendly and helpful",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "n., adj.",
+    "example": "Thank you, that's very kind. No wasabi, please!"
+  },
+  {
+    "word": "in a hurry",
+    "th": "รีบ",
+    "meaning": "needing to do something quickly because you don't have much time",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Please don't take too long, I'm in a hurry."
+  },
+  {
+    "word": "instead",
+    "th": "แทน",
+    "meaning": "in place of something else",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "adv.",
+    "example": "Hmm, that doesn't sound very nice. I'll just have a Salmon Roll instead."
+  },
+  {
+    "word": "a bit of a rush",
+    "th": "ค่อนข้างรีบ",
+    "meaning": "a little busy and needing to do things quickly",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "B2",
+    "example": "Hi! Sorry, I'm in a bit of a rush. How long does a sushi roll take?"
+  },
+  {
+    "word": "on the side",
+    "th": "แยกไว้ข้างจาน",
+    "meaning": "served separately, not on top of the food",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "Great, a Salmon Roll then. Could I have extra soy sauce on the side?"
+  },
+  {
+    "word": "fresh",
+    "th": "สด",
+    "meaning": "recently made, caught or picked, not old",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "adj.",
+    "example": "Our Salmon Nigiri Set is very popular. It's fresh and delicious."
+  },
+  {
+    "word": "hearing",
+    "th": "การได้ยิน",
+    "meaning": "the ability to hear sounds",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "Good evening, young man. Could you speak a little slowly, please? My hearing isn't very good."
+  },
+  {
+    "word": "soft",
+    "th": "นุ่ม",
+    "meaning": "not hard; easy to press or bite",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "adj.",
+    "example": "Thank you, dear. I'd like something soft. My teeth aren't very strong."
+  },
+  {
+    "word": "salty",
+    "th": "เค็ม",
+    "meaning": "tasting of salt",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "The Ikura Gunkan is a chef's favourite. It's rich and a little salty."
+  },
+  {
+    "word": "too strong",
+    "th": "(รส) แรงเกินไป",
+    "meaning": "having more taste than someone likes",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Lovely. Could you make it without wasabi, please? It's too strong for me."
+  },
+  {
+    "word": "I suppose",
+    "th": "ก็คงงั้น (ยอมรับแบบไม่ค่อยเต็มใจ)",
+    "meaning": "said when you agree but are not very happy about it",
+    "level": "r1",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "Oh dear. Then I'll have the Salmon Nigiri, I suppose."
+  },
+  {
+    "word": "famished",
+    "th": "หิวมาก",
+    "meaning": "extremely hungry",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Ciao! It smells amazing in here. I am absolutely famished!"
+  },
+  {
+    "word": "signature dish",
+    "th": "เมนูขึ้นชื่อของร้าน",
+    "meaning": "the special dish a restaurant is most famous for",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": "B2",
+    "example": "Just sparkling water with lemon, please. What is your signature dish?"
+  },
+  {
+    "word": "crust",
+    "th": "ขอบแป้ง, เปลือกแป้ง",
+    "meaning": "the hard outside edge of a pizza or bread",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Perfetto! Please make sure the crust is nice and crispy."
+  },
+  {
+    "word": "crispy",
+    "th": "กรอบ",
+    "meaning": "hard and dry in a pleasant way, making a sound when you bite it",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Perfetto! Please make sure the crust is nice and crispy."
+  },
+  {
+    "word": "al dente",
+    "th": "(เส้นพาสต้า) สุกกำลังดี ยังหนึบ",
+    "meaning": "cooked so it is still a little firm when you bite it",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Wonderful. I'd like spaghetti, but nothing too spicy, please. And I like my pasta al dente."
+  },
+  {
+    "word": "on top",
+    "th": "ด้านบน",
+    "meaning": "placed on the highest part of something",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "That sounds perfect. Could I have some extra cheese on top?"
+  },
+  {
+    "word": "Never mind",
+    "th": "ไม่เป็นไร, ช่างมันเถอะ",
+    "meaning": "said when you decide something is not important any more",
+    "level": "r2",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "Oh. Never mind the cheese, then."
+  },
+  {
+    "word": "flavors",
+    "th": "รสชาติ",
+    "meaning": "the tastes that food has, such as sweet, salty or sour",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "n.",
+    "example": "Sawasdee krub! It's my first time at this market. What would you recommend for someone who loves strong flavors?"
+  },
+  {
+    "word": "describe",
+    "th": "อธิบาย, บรรยายลักษณะ",
+    "meaning": "to say what something is like",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "v.",
+    "example": "Som Tam Poo? I've never tried it. Could you describe it for me?"
+  },
+  {
+    "word": "raw",
+    "th": "ดิบ",
+    "meaning": "not cooked",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "adj.",
+    "example": "Salted crab sounds interesting. Is the crab raw, or is it cooked?"
+  },
+  {
+    "word": "prefer",
+    "th": "ชอบ...มากกว่า",
+    "meaning": "to like one thing more than another",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "v.",
+    "example": "Of course! Would you prefer hot green tea or cold water?"
+  },
+  {
+    "word": "quite",
+    "th": "ค่อนข้าง",
+    "meaning": "fairly; more than a little",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "adv.",
+    "example": "Thank you. I'm quite hungry, but I'm not very familiar with Japanese food. What do you recommend?"
+  },
+  {
+    "word": "suggest",
+    "th": "แนะนำ, เสนอแนะ",
+    "meaning": "to give an idea for someone to think about",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "v.",
+    "example": "I'm sorry. Then I'd suggest the Spaghetti Pomodoro. It's mild."
+  },
+  {
+    "word": "can't wait",
+    "th": "รอไม่ไหวแล้ว (ตื่นเต้นมาก)",
+    "meaning": "to be very excited about something that will happen soon",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "I can't wait to try it!"
+  },
+  {
+    "word": "allergic",
+    "th": "แพ้ (อาหาร/สิ่งของ)",
+    "meaning": "having a bad reaction to something you eat or touch",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Hi! Before I order, I need to tell you something important. I'm allergic to peanuts."
+  },
+  {
+    "word": "important",
+    "th": "สำคัญ",
+    "meaning": "something you need to pay attention to",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "adj.",
+    "example": "Hi! Before I order, I need to tell you something important. I'm allergic to peanuts."
+  },
+  {
+    "word": "tiny",
+    "th": "เล็กมาก",
+    "meaning": "very small",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "adj.",
+    "example": "Picking them out isn't enough. Even a tiny piece could make me very sick!"
+  },
+  {
+    "word": "made without",
+    "th": "ทำโดยไม่ใส่...",
+    "meaning": "prepared with no amount of a certain ingredient",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Thank you. Which salads on your menu are made without peanuts?"
+  },
+  {
+    "word": "sweet and sour",
+    "th": "เปรี้ยวหวาน",
+    "meaning": "tasting of sugar and of something like lime at the same time",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Most of our salads use peanuts, but I can make the Som Tam Thai without them. It's sweet and sour."
+  },
+  {
+    "word": "not used to",
+    "th": "ไม่คุ้นเคยกับ",
+    "meaning": "not familiar with something because you don't do or have it often",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Mmm. I'm not used to very spicy food, though. Can you make it mild?"
+  },
+  {
+    "word": "mild",
+    "th": "(รส) อ่อน ไม่จัด",
+    "meaning": "not strong or not very spicy",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "adj.",
+    "example": "Our Spaghetti Pomodoro has a mild tomato sauce. It isn't spicy at all."
+  },
+  {
+    "word": "careful",
+    "th": "ระมัดระวัง",
+    "meaning": "giving attention to avoid mistakes or danger",
+    "level": "r3",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "adj.",
+    "example": "Perfect. One Som Tam Thai, one chili and no peanuts. Thank you for being so careful!"
+  },
+  {
+    "word": "charming",
+    "th": "มีเสน่ห์, น่ารัก",
+    "meaning": "pleasant and attractive",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "adj.",
+    "example": "Bonjour! What a charming café. Do you have any seasonal desserts today?"
+  },
+  {
+    "word": "seasonal",
+    "th": "ตามฤดูกาล",
+    "meaning": "available only at a particular time of year",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "C1",
+    "pos": "adj.",
+    "example": "Bonjour! What a charming café. Do you have any seasonal desserts today?"
+  },
+  {
+    "word": "made of",
+    "th": "ทำจาก",
+    "meaning": "the materials or ingredients used to make something",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "How lovely! Could you tell me what the macarons are made of?"
+  },
+  {
+    "word": "sugary",
+    "th": "หวานจัด, มีน้ำตาลมาก",
+    "meaning": "containing a lot of sugar",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "It sounds wonderful, but is it very sweet? I don't really enjoy desserts that are too sugary."
+  },
+  {
+    "word": "go with",
+    "th": "เข้ากันกับ",
+    "meaning": "to taste or look good together",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "That sounds perfect. Which drink would you suggest to go with it?"
+  },
+  {
+    "word": "Would it be possible",
+    "th": "เป็นไปได้ไหมที่จะ... (ขออย่างสุภาพมาก)",
+    "meaning": "a very polite way to ask for something",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Merci. Oh, it's my granddaughter's birthday today. Would it be possible to add a candle?"
+  },
+  {
+    "word": "candle",
+    "th": "เทียน",
+    "meaning": "a stick of wax that you light, often put on a birthday cake",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "n.",
+    "example": "Merci. Oh, it's my granddaughter's birthday today. Would it be possible to add a candle?"
+  },
+  {
+    "word": "too late",
+    "th": "สายเกินไป",
+    "meaning": "after the time when something can happen",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Good morning! Am I too late for breakfast? Some cafés stop serving it at ten."
+  },
+  {
+    "word": "in the mood for",
+    "th": "อยาก (กิน/ทำ) ... ตอนนี้",
+    "meaning": "wanting to have or do something at the moment",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Lucky me! I'm in the mood for something fluffy and sweet. What do you suggest?"
+  },
+  {
+    "word": "fluffy",
+    "th": "ฟู, นุ่มเบา",
+    "meaning": "soft and light, full of air",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Lucky me! I'm in the mood for something fluffy and sweet. What do you suggest?"
+  },
+  {
+    "word": "meeting",
+    "th": "การประชุม",
+    "meaning": "a time when people come together to talk about work or plans",
+    "level": "r4",
+    "topic": "phrase",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "Pancakes sound amazing! I have a meeting at nine thirty, though. How long will they take?"
+  },
+  {
+    "word": "starving",
+    "th": "หิวมาก ๆ",
+    "meaning": "very hungry (informal)",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "v.",
+    "example": "Hey there! I'm absolutely starving. What's the best thing on your menu?"
+  },
+  {
+    "word": "absolutely",
+    "th": "อย่างยิ่ง, แน่นอนที่สุด",
+    "meaning": "completely; used to make a word stronger",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "adv.",
+    "example": "Ciao! It smells amazing in here. I am absolutely famished!"
+  },
+  {
+    "word": "comes with",
+    "th": "มาพร้อมกับ",
+    "meaning": "is served together with",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Sounds great. What exactly comes with it?"
+  },
+  {
+    "word": "patty",
+    "th": "เนื้อแผ่น (สำหรับเบอร์เกอร์)",
+    "meaning": "a flat, round piece of meat for a burger",
+    "level": "r5",
+    "topic": "phrase",
+    "ingredient": "patty_raw",
+    "cefr": null,
+    "example": "It comes with a grilled beef patty, melted cheese, lettuce and tomato on a toasted bun."
+  },
+  {
+    "word": "hold the lettuce",
+    "th": "ไม่ใส่ผักกาด",
+    "meaning": "don't put lettuce on it",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Perfect. Oh, and could you hold the lettuce? I'm not a fan."
+  },
+  {
+    "word": "not a fan",
+    "th": "ไม่ค่อยชอบ",
+    "meaning": "don't like something very much",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "A2",
+    "example": "Perfect. Oh, and could you hold the lettuce? I'm not a fan."
+  },
+  {
+    "word": "in a bit of a hurry",
+    "th": "ค่อนข้างรีบ",
+    "meaning": "needing to do things a little quickly",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "That's all, thanks. I'm in a bit of a hurry, though. How long is the wait right now?"
+  },
+  {
+    "word": "rumbling",
+    "th": "(ท้อง) ร้องโครกคราก",
+    "meaning": "making a long, low sound, like a hungry stomach",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": null,
+    "example": "Thanks! My stomach is rumbling already."
+  },
+  {
+    "word": "side",
+    "th": "เครื่องเคียง",
+    "meaning": "a small extra dish served with a meal",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "A2",
+    "pos": "n.",
+    "example": "Great, a Salmon Roll then. Could I have extra soy sauce on the side?"
+  },
+  {
+    "word": "apology",
+    "th": "คำขอโทษ",
+    "meaning": "words that say you are sorry",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B2",
+    "pos": "n.",
+    "example": "Well, that's not much of an apology, is it?"
+  },
+  {
+    "word": "noon",
+    "th": "เที่ยงวัน",
+    "meaning": "twelve o'clock in the middle of the day",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "C1",
+    "pos": "n.",
+    "example": "Alright. How long will they take? I'm meeting a friend at noon."
+  },
+  {
+    "word": "go easy on",
+    "th": "ใส่...น้อย ๆ",
+    "meaning": "use only a little of something",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Sounds good. Could you go easy on the salt? My doctor says I should cut down."
+  },
+  {
+    "word": "cut down",
+    "th": "ลด (การกิน/การใช้) ลง",
+    "meaning": "to eat, drink or use less of something",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "A1",
+    "example": "Sounds good. Could you go easy on the salt? My doctor says I should cut down."
+  },
+  {
+    "word": "appreciated",
+    "th": "ซาบซึ้ง, ขอบคุณ",
+    "meaning": "something you are thankful for",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B1",
+    "pos": "v.",
+    "example": "Much appreciated. Do you have any sauces that aren't too salty?"
+  },
+  {
+    "word": "much appreciated",
+    "th": "ขอบคุณมาก",
+    "meaning": "thank you very much",
+    "level": "r5",
+    "topic": "phrase",
+    "cefr": "B1",
+    "example": "Much appreciated. Do you have any sauces that aren't too salty?"
+  },
+  {
+    "word": "rice",
+    "th": "ข้าว",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "rice",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "Sticky rice goes perfectly with som tam, and it helps if the salad feels too hot."
+  },
+  {
+    "word": "salmon",
+    "th": "ปลาแซลมอน",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "salmon",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "Our Salmon Nigiri Set is very popular. It's fresh and delicious."
+  },
+  {
+    "word": "tuna",
+    "th": "ปลาทูน่า",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "tuna",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "Oh... well, I guess I'll just have the Tuna Nigiri then."
+  },
+  {
+    "word": "avocado",
+    "th": "อะโวคาโด",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "avocado",
+    "cefr": null,
+    "example": "No problem! Our Avocado Cucumber Roll has no fish at all. It's fresh and crunchy."
+  },
+  {
+    "word": "cucumber",
+    "th": "แตงกวา",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "cucumber",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "No problem! Our Avocado Cucumber Roll has no fish at all. It's fresh and crunchy."
+  },
+  {
+    "word": "wasabi",
+    "th": "วาซาบิ",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "wasabi",
+    "cefr": null,
+    "example": "Yes, that's wasabi. I can leave it out for you if you like."
+  },
+  {
+    "word": "ginger",
+    "th": "ขิง",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "ginger",
+    "cefr": null
+  },
+  {
+    "word": "soy sauce",
+    "th": "ซอสถั่วเหลืองญี่ปุ่น (โชยุ)",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "soy_sauce",
+    "cefr": null,
+    "example": "Great, a Salmon Roll then. Could I have extra soy sauce on the side?"
+  },
+  {
+    "word": "salmon roe",
+    "th": "ไข่ปลาแซลมอน",
+    "level": "r1",
+    "topic": "food",
+    "ingredient": "ikura",
+    "cefr": null,
+    "example": "It's salmon roe. They're small orange fish eggs that pop in your mouth."
+  },
+  {
+    "word": "roll",
+    "th": "ม้วน",
+    "level": "r1",
+    "topic": "cooking",
+    "ingredient": "roll",
+    "cefr": "B1",
+    "pos": "v., n.",
+    "example": "No problem! Our Avocado Cucumber Roll has no fish at all. It's fresh and crunchy."
+  },
+  {
+    "word": "cut",
+    "th": "หั่น, ตัด",
+    "level": "r1",
+    "topic": "cooking",
+    "ingredient": "cut",
+    "cefr": "A1",
+    "pos": "v., n.",
+    "example": "About ten minutes. We peel and cut the potatoes fresh, so they taste much better."
+  },
+  {
+    "word": "dough",
+    "th": "แป้งโดว์",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "dough",
+    "cefr": null
+  },
+  {
+    "word": "tomato sauce",
+    "th": "ซอสมะเขือเทศ",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "tomato_sauce",
+    "cefr": "A2",
+    "example": "Our Spaghetti Pomodoro has a mild tomato sauce. It isn't spicy at all."
+  },
+  {
+    "word": "mozzarella",
+    "th": "ชีสมอซซาเรลลา",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "mozzarella",
+    "cefr": null,
+    "example": "Our classic wood-fired Margherita Pizza is a favourite: tomato, mozzarella and fresh basil."
+  },
+  {
+    "word": "basil",
+    "th": "ใบเบซิล (โหระพาฝรั่ง)",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "basil",
+    "cefr": null,
+    "example": "Our classic wood-fired Margherita Pizza is a favourite: tomato, mozzarella and fresh basil."
+  },
+  {
+    "word": "mushroom",
+    "th": "เห็ด",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "mushroom",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "If you like mushrooms, our Mushroom Pizza is very popular."
+  },
+  {
+    "word": "spaghetti",
+    "th": "เส้นสปาเกตตี",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "spaghetti",
+    "cefr": null,
+    "example": "Wonderful. I'd like spaghetti, but nothing too spicy, please. And I like my pasta al dente."
+  },
+  {
+    "word": "parmesan",
+    "th": "ชีสพาร์มีซาน",
+    "level": "r2",
+    "topic": "food",
+    "ingredient": "parmesan",
+    "cefr": null,
+    "example": "Certainly. I'll add some grated Parmesan on top."
+  },
+  {
+    "word": "knead",
+    "th": "นวด (แป้ง)",
+    "level": "r2",
+    "topic": "cooking",
+    "ingredient": "knead",
+    "cefr": null
+  },
+  {
+    "word": "stretch",
+    "th": "คลึงแป้งให้แผ่ออก",
+    "level": "r2",
+    "topic": "cooking",
+    "ingredient": "stretch",
+    "cefr": "B2",
+    "pos": "v., n."
+  },
+  {
+    "word": "boil",
+    "th": "ต้ม",
+    "level": "r2",
+    "topic": "cooking",
+    "ingredient": "boil",
+    "cefr": "A2",
+    "pos": "v."
+  },
+  {
+    "word": "bake",
+    "th": "อบ",
+    "level": "r2",
+    "topic": "cooking",
+    "ingredient": "bake",
+    "cefr": "B1",
+    "pos": "v."
+  },
+  {
+    "word": "toss",
+    "th": "คลุกให้เข้ากัน",
+    "level": "r2",
+    "topic": "cooking",
+    "ingredient": "toss_pasta",
+    "cefr": "C1",
+    "pos": "v."
+  },
+  {
+    "word": "garlic",
+    "th": "กระเทียม",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "garlic",
+    "cefr": "B1",
+    "pos": "n."
+  },
+  {
+    "word": "chili",
+    "th": "พริก",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "chili",
+    "cefr": null,
+    "example": "We can make it as spicy as you like. One chili is mild, and three chilies is Thai spicy."
+  },
+  {
+    "word": "cherry tomatoes",
+    "th": "มะเขือเทศลูกเล็ก",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "cherry_tomato",
+    "cefr": null
+  },
+  {
+    "word": "dried shrimp",
+    "th": "กุ้งแห้ง",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "dried_shrimp",
+    "cefr": null,
+    "example": "It has green papaya, dried shrimp, tomatoes, lime and palm sugar."
+  },
+  {
+    "word": "salted crab",
+    "th": "ปูเค็ม",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "salted_crab",
+    "cefr": null,
+    "example": "Of course. It's a green papaya salad with salted crab. It tastes salty, sour and spicy at the same time."
+  },
+  {
+    "word": "peanuts",
+    "th": "ถั่วลิสง",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "peanuts",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "Hi! Before I order, I need to tell you something important. I'm allergic to peanuts."
+  },
+  {
+    "word": "palm sugar",
+    "th": "น้ำตาลปี๊บ",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "palm_sugar",
+    "cefr": "B2",
+    "example": "It has green papaya, dried shrimp, tomatoes, lime and palm sugar."
+  },
+  {
+    "word": "fish sauce",
+    "th": "น้ำปลา",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "fish_sauce",
+    "cefr": "A2"
+  },
+  {
+    "word": "lime",
+    "th": "มะนาว",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "lime",
+    "cefr": null,
+    "example": "It has green papaya, dried shrimp, tomatoes, lime and palm sugar."
+  },
+  {
+    "word": "papaya",
+    "th": "มะละกอ",
+    "level": "r3",
+    "topic": "food",
+    "ingredient": "papaya",
+    "cefr": null,
+    "example": "Of course. It's a green papaya salad with salted crab. It tastes salty, sour and spicy at the same time."
+  },
+  {
+    "word": "pound",
+    "th": "ตำ",
+    "level": "r3",
+    "topic": "cooking",
+    "ingredient": "pound",
+    "cefr": "A1",
+    "pos": "n."
+  },
+  {
+    "word": "mix",
+    "th": "ผสม, คลุก",
+    "level": "r3",
+    "topic": "cooking",
+    "ingredient": "toss",
+    "cefr": "B1",
+    "pos": "v., n."
+  },
+  {
+    "word": "macaron",
+    "th": "ขนมมาการง",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "macaron_pink",
+    "cefr": null,
+    "example": "Bonjour, madame! Yes, this season we're serving a Berry Macaron Tower with fresh strawberries."
+  },
+  {
+    "word": "berries",
+    "th": "ผลไม้ตระกูลเบอร์รี",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "berries",
+    "cefr": null,
+    "example": "I apologize, madame. It's a tower of pink, green and yellow macarons with fresh berries on top."
+  },
+  {
+    "word": "batter",
+    "th": "แป้งผสมเหลว (สำหรับแพนเค้ก)",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "batter",
+    "cefr": "B2",
+    "pos": "n., v."
+  },
+  {
+    "word": "butter",
+    "th": "เนย",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "butter",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "Our pancakes are light and fluffy, and they're served with butter and maple syrup."
+  },
+  {
+    "word": "maple syrup",
+    "th": "น้ำเชื่อมเมเปิล",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "syrup",
+    "cefr": null,
+    "example": "Our pancakes are light and fluffy, and they're served with butter and maple syrup."
+  },
+  {
+    "word": "strawberries",
+    "th": "สตรอว์เบอร์รี",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "strawberries",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "Bonjour, madame! Yes, this season we're serving a Berry Macaron Tower with fresh strawberries."
+  },
+  {
+    "word": "blueberries",
+    "th": "บลูเบอร์รี",
+    "level": "r4",
+    "topic": "food",
+    "ingredient": "blueberries",
+    "cefr": null,
+    "example": "Blueberries are a great choice. They go really well with maple syrup."
+  },
+  {
+    "word": "flip",
+    "th": "พลิก, กลับด้าน",
+    "level": "r4",
+    "topic": "cooking",
+    "ingredient": "flip",
+    "cefr": null
+  },
+  {
+    "word": "bun",
+    "th": "ขนมปังก้อนกลม (บัน)",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "bun_top",
+    "cefr": null,
+    "example": "It comes with a grilled beef patty, melted cheese, lettuce and tomato on a toasted bun."
+  },
+  {
+    "word": "cheese",
+    "th": "ชีส",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "cheese",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "That sounds perfect. Could I have some extra cheese on top?"
+  },
+  {
+    "word": "lettuce",
+    "th": "ผักกาดแก้ว",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "lettuce",
+    "cefr": "B1",
+    "pos": "n.",
+    "example": "It comes with a grilled beef patty, melted cheese, lettuce and tomato on a toasted bun."
+  },
+  {
+    "word": "tomato",
+    "th": "มะเขือเทศ",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "tomato",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "Our classic wood-fired Margherita Pizza is a favourite: tomato, mozzarella and fresh basil."
+  },
+  {
+    "word": "potato",
+    "th": "มันฝรั่ง",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "potato",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "About ten minutes. We peel and cut the potatoes fresh, so they taste much better."
+  },
+  {
+    "word": "salt",
+    "th": "เกลือ",
+    "level": "r5",
+    "topic": "food",
+    "ingredient": "salt",
+    "cefr": "A1",
+    "pos": "n.",
+    "example": "The Ikura Gunkan is a chef's favourite. It's rich and a little salty."
+  },
+  {
+    "word": "season",
+    "th": "ปรุงรส",
+    "level": "r5",
+    "topic": "cooking",
+    "ingredient": "season",
+    "cefr": "A2",
+    "pos": "n.",
+    "example": "Bonjour! What a charming café. Do you have any seasonal desserts today?"
+  },
+  {
+    "word": "grill",
+    "th": "ย่าง",
+    "level": "r5",
+    "topic": "cooking",
+    "ingredient": "grill",
+    "cefr": "B1",
+    "pos": "n., v.",
+    "example": "It comes with a grilled beef patty, melted cheese, lettuce and tomato on a toasted bun."
+  },
+  {
+    "word": "fry",
+    "th": "ทอด",
+    "level": "r5",
+    "topic": "cooking",
+    "ingredient": "fry",
+    "cefr": "B1",
+    "pos": "v."
+  },
+  {
+    "word": "peel",
+    "th": "ปอกเปลือก",
+    "level": "r5",
+    "topic": "cooking",
+    "ingredient": "peel",
+    "cefr": "B1",
+    "pos": "v.",
+    "example": "About ten minutes. We peel and cut the potatoes fresh, so they taste much better."
+  }
+]

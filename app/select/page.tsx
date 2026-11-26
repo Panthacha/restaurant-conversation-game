@@ -1,26 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useGameStore } from "@/lib/store";
 import { prefetchLevels } from "@/lib/preload";
+import { useHydrated } from "@/lib/useHydrated";
 import restaurantsData from "@/data/restaurants.json";
-import { Star, Lock, ArrowLeft, Map } from "lucide-react";
+import { Star, Lock, ArrowLeft, Map, Mic, MousePointerClick } from "lucide-react";
 
 export default function SelectScreen() {
   const { profile, progress } = useGameStore();
-  const [mounted, setMounted] = useState(false);
-  const [currentDate, setCurrentDate] = useState("");
-
-  useEffect(() => {
-    setMounted(true);
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    setCurrentDate(`${dd}-${mm}-${yyyy}`);
-  }, []);
+  const mounted = useHydrated();
 
   // While the player picks a level, quietly load the ones they can play.
   useEffect(() => {
@@ -47,9 +38,9 @@ export default function SelectScreen() {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 bg-white/60 backdrop-blur-md p-6 rounded-[2rem] border-4 border-white shadow-[0_8px_30px_rgba(139,69,19,0.05)]">
           <div className="flex-1">
-            <Link href="/profile" className="inline-flex items-center text-orange-600 hover:text-orange-700 bg-orange-100 hover:bg-orange-200 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4 transition-colors shadow-sm">
+            <Link href="/menu" className="inline-flex items-center text-orange-600 hover:text-orange-700 bg-orange-100 hover:bg-orange-200 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4 transition-colors shadow-sm">
               <ArrowLeft size={16} className="mr-2" strokeWidth={3} />
-              Back to Profile
+              <span className="font-mitr normal-case tracking-normal">เมนูหลัก</span>
             </Link>
             
             <h1 className="text-5xl md:text-6xl font-luckiest-guy text-[#FFB800] tracking-wider drop-shadow-[0_4px_0_#8B4513]"
@@ -79,7 +70,7 @@ export default function SelectScreen() {
               
               <div className="flex flex-col mt-2">
                 <span className="text-[10px] font-black tracking-widest uppercase text-stone-400 mb-0.5">
-                  ID: {currentDate}
+                  CLASS: {profile.classroom || "-"}
                 </span>
                 <span className="font-roasted text-3xl text-orange-600 leading-none uppercase tracking-wide">
                   {profile.name || "GUEST"}
@@ -94,7 +85,8 @@ export default function SelectScreen() {
           {restaurantsData.map((restaurant, index) => {
             const isUnlocked = progress[restaurant.id]?.unlocked;
             const stars = progress[restaurant.id]?.stars || 0;
-            const imageUrl = (restaurant as any).image;
+            const imageUrl = restaurant.image;
+            const speaking = restaurant.answerMode === "speak";
             
             return (
               <motion.div
@@ -158,6 +150,15 @@ export default function SelectScreen() {
                         <p className="text-[15px] text-stone-500 font-sans font-medium leading-relaxed line-clamp-2">
                           {restaurant.description}
                         </p>
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          <span className="inline-flex items-center gap-1 font-mitr text-xs px-2.5 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+                            {speaking ? <Mic size={12} /> : <MousePointerClick size={12} />}
+                            {speaking ? "พูดตอบ (มีตัวช่วย)" : "เลือกคำตอบ"}
+                          </span>
+                          <span className="inline-flex items-center font-mitr text-xs px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                            คำศัพท์ระดับ {restaurant.cefr}
+                          </span>
+                        </div>
                       </div>
                       
                       {/* Footer: Stars */}

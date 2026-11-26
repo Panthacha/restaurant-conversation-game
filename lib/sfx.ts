@@ -149,6 +149,13 @@ export const sfx = {
   },
   // A step the order didn't ask for.
   buzz: () => tone(150, 0.22, { type: "square", gain: 0.08, to: 120 }),
+  // A polite reply: two bright rising notes.
+  chime: () => {
+    tone(784, 0.18, { gain: 0.16, type: "triangle" });
+    tone(1175, 0.3, { gain: 0.14, type: "triangle", delay: 0.09 });
+  },
+  // The microphone starts listening.
+  listen: () => tone(660, 0.12, { to: 990, gain: 0.12 }),
   // Dish served: a happy arpeggio, or a sad slide when it was wrong.
   success: () => [523, 659, 784, 1046].forEach((f, i) => tone(f, 0.25, { gain: 0.2, type: "triangle", delay: i * 0.09 })),
   fail: () => [392, 330, 262].forEach((f, i) => tone(f, 0.3, { gain: 0.18, type: "triangle", delay: i * 0.14 })),

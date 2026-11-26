@@ -5,10 +5,19 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { ChefHat, UtensilsCrossed, Sparkles } from "lucide-react";
 import { prefetchLevels } from "@/lib/preload";
+import { useAuth } from "@/lib/auth";
+import { useGameStore } from "@/lib/store";
 import restaurantsData from "@/data/restaurants.json";
 
 export default function Home() {
   const router = useRouter();
+  const { configured, user } = useAuth();
+
+  // Sign in first (when accounts are set up), then make an ID card once, then the main menu.
+  const start = () => {
+    if (configured && !user) router.push("/login");
+    else router.push(useGameStore.getState().profile.name ? "/menu" : "/profile");
+  };
 
   // While the title shows, fetch what comes next: the chef photos, the level covers and the first level.
   useEffect(() => {
@@ -19,7 +28,7 @@ export default function Home() {
   return (
     <main 
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-stone-950 text-white cursor-pointer"
-      onClick={() => router.push("/profile")}
+      onClick={start}
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">

@@ -489,125 +489,197 @@
   },
   "r3": {
     "start": {
-      "text": "Sawasdee krub! I need something really flavorful and spicy today.",
-      "choices": [
+      "text": "Sawasdee krub! It's my first time at this market. What would you recommend for someone who loves strong flavors?",
+      "vocab": [
         {
-          "text": "Sawasdee! You've come to the right place. How about our Som Tam Poo?",
-          "next": "recommend",
-          "moodChange": 1,
-          "tip": "Great! A friendly greeting plus a clear suggestion."
+          "word": "recommend",
+          "meaning": "to say that something is good and someone should try it"
         },
         {
-          "text": "Everything here is spicy. What do you want?",
+          "word": "flavors",
+          "meaning": "the tastes that food has, such as sweet, salty or sour"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Sawasdee krub, welcome! If you love strong flavors, I'd recommend our Som Tam Poo.",
+          "next": "describe",
+          "moodChange": 1,
+          "tip": "Excellent! You greeted him back in Thai and used 'If you love…, I'd recommend…' to give a recommendation that matches what he wants."
+        },
+        {
+          "text": "We have som tam. It's popular.",
+          "next": "describe",
+          "moodChange": 0,
+          "tip": "Correct, but very short. Try connecting your answer to what he asked: 'If you love strong flavors, I'd recommend…'"
+        },
+        {
+          "text": "Everything here is strong. Just choose something.",
           "next": "rude_start",
           "moodChange": -2,
-          "tip": "Too blunt. Help the customer choose: 'How about our Som Tam?'"
-        }
-      ],
-      "vocab": [
-        {
-          "word": "flavorful",
-          "meaning": "having a strong, delicious taste"
-        }
-      ]
-    },
-    "recommend": {
-      "text": "Som Tam Poo? What does it taste like?",
-      "choices": [
-        {
-          "text": "It's a papaya salad with salted crab. It's salty, sour and spicy.",
-          "next": "spice",
-          "moodChange": 1,
-          "tip": "Excellent! Describing the taste with 'salty, sour and spicy' helps the customer imagine the dish."
-        },
-        {
-          "text": "It's just salad.",
-          "next": "spice",
-          "moodChange": -1,
-          "tip": "Too short. Tell the customer the main ingredients and how it tastes."
-        }
-      ],
-      "vocab": [
-        {
-          "word": "taste like",
-          "meaning": "what flavour something has"
+          "tip": "Rude. 'Just choose something' tells the customer you don't want to help. A server's job is to help guests choose."
         }
       ]
     },
     "rude_start": {
-      "text": "Uh... okay. Just give me a Som Tam Poo, extra spicy I guess.",
+      "text": "Hmm, that's not very helpful. Fine, I'll have the Som Tam Poo, I guess.",
       "choices": [
         {
-          "text": "Sorry about that. Coming right up! How many chilies would you like?",
-          "next": "spice",
+          "text": "I'm sorry about that, sir. It's a great choice. Let me tell you a little about it.",
+          "next": "ingredients",
           "moodChange": 1,
-          "tip": "Good recovery! Apologise, then ask a useful question."
+          "tip": "Good recovery! 'I'm sorry about that' accepts the problem, and offering more information shows you want to help now."
         },
         {
-          "text": "Sure, whatever.",
+          "text": "OK, one Som Tam Poo.",
+          "next": "spice",
+          "moodChange": 0,
+          "tip": "Polite enough, but you missed the chance to apologize for your first answer."
+        },
+        {
+          "text": "Good. It's the cheapest one anyway.",
           "next": "spice",
           "moodChange": -1,
-          "tip": "Still unfriendly. Try: 'Sure! How spicy would you like it?'"
+          "tip": "Talking about price like this can sound like you think the customer is cheap. Focus on why the dish is good."
+        }
+      ]
+    },
+    "describe": {
+      "text": "Som Tam Poo? I've never tried it. Could you describe it for me?",
+      "vocab": [
+        {
+          "word": "describe",
+          "meaning": "to say what something is like"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Of course. It's a green papaya salad with salted crab. It tastes salty, sour and spicy at the same time.",
+          "next": "ingredients",
+          "moodChange": 1,
+          "tip": "Perfect description! You named the main ingredients and used taste words (salty, sour, spicy) joined by 'at the same time'."
+        },
+        {
+          "text": "It's papaya salad with crab.",
+          "next": "ingredients",
+          "moodChange": 0,
+          "tip": "True, but a description should also say how it tastes. Add adjectives like 'salty, sour and spicy'."
+        },
+        {
+          "text": "It's hard to explain. Just try it.",
+          "next": "ingredients",
+          "moodChange": -1,
+          "tip": "Unhelpful. The customer asked you to describe the dish, so give him some details."
+        }
+      ]
+    },
+    "ingredients": {
+      "text": "Salted crab sounds interesting. Is the crab raw, or is it cooked?",
+      "vocab": [
+        {
+          "word": "raw",
+          "meaning": "not cooked"
+        }
+      ],
+      "choices": [
+        {
+          "text": "The crab is salted, not cooked, which gives the salad its special taste. Is that OK for you?",
+          "next": "spice",
+          "moodChange": 1,
+          "tip": "Very good. You answered clearly, explained why ('which gives…'), and checked that it's OK for him. Checking is polite and safe."
+        },
+        {
+          "text": "It's salted.",
+          "next": "spice",
+          "moodChange": 0,
+          "tip": "Correct but incomplete. He asked 'raw or cooked?', so answer that part too."
+        },
+        {
+          "text": "Why does it matter? Everyone eats it.",
+          "next": "spice",
+          "moodChange": -1,
+          "tip": "Never question why a customer asks about food. Some people can't eat raw food for health reasons."
         }
       ]
     },
     "spice": {
-      "text": "I love it spicy. How many chilies do you usually put in?",
-      "choices": [
-        {
-          "text": "One chili is mild. For Thai spicy, I use three chilies.",
-          "next": "confirm",
-          "moodChange": 1,
-          "tip": "Perfect! Using numbers ('one chili', 'three chilies') makes the spice level clear."
-        },
-        {
-          "text": "I don't count. I just throw some in.",
-          "next": "confirm",
-          "moodChange": -1,
-          "tip": "Unclear. The customer can't choose if you don't explain. Give numbers."
-        }
-      ],
+      "text": "That's fine with me. How spicy can you make it? I usually prefer my food quite hot.",
       "vocab": [
         {
-          "word": "chilies",
-          "meaning": "small hot peppers that make food spicy"
+          "word": "prefer",
+          "meaning": "to like one thing more than another"
+        },
+        {
+          "word": "quite",
+          "meaning": "fairly; more than a little"
+        }
+      ],
+      "choices": [
+        {
+          "text": "We can make it as spicy as you like. One chili is mild, and three chilies is Thai spicy.",
+          "next": "choose_level",
+          "moodChange": 1,
+          "tip": "Great! 'As spicy as you like' gives him the choice, and you explained the levels clearly with numbers."
+        },
+        {
+          "text": "I can add more chilies.",
+          "next": "choose_level",
+          "moodChange": 0,
+          "tip": "OK, but give him clear options so he can decide how spicy he wants it."
+        },
+        {
+          "text": "Thai spicy is probably too much for you.",
+          "next": "choose_level",
+          "moodChange": -1,
+          "tip": "Don't decide for the customer. This sounds like you think he can't handle it."
+        }
+      ]
+    },
+    "choose_level": {
+      "text": "Three chilies, please. Thai spicy! Is there anything you'd suggest eating with it?",
+      "vocab": [
+        {
+          "word": "suggest",
+          "meaning": "to give an idea for someone to think about"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Sticky rice goes perfectly with som tam, and it helps if the salad feels too hot.",
+          "next": "confirm",
+          "moodChange": 1,
+          "tip": "Very helpful! 'Goes perfectly with' is a natural way to pair foods, and you gave a useful reason."
+        },
+        {
+          "text": "You can have sticky rice if you want.",
+          "next": "confirm",
+          "moodChange": 0,
+          "tip": "Fine. Saying why it goes well together would make the suggestion stronger."
+        },
+        {
+          "text": "No, that's enough food.",
+          "next": "confirm",
+          "moodChange": -1,
+          "tip": "He asked for a suggestion, so 'that's enough food' sounds like you are judging how much he eats."
         }
       ]
     },
     "confirm": {
-      "text": "Three chilies, please. Thai spicy! I love it when it burns a little.",
-      "action": "start_cooking",
-      "recipeId": "som_tam_poo",
-      "choices": [],
+      "text": "Wonderful. One Som Tam Poo with three chilies, please. I can't wait to try it!",
       "vocab": [
         {
-          "word": "Thai spicy",
-          "meaning": "very spicy, the way many Thai people like it"
-        },
-        {
-          "word": "burns",
-          "meaning": "gives a hot, painful feeling (here: from spicy food)"
+          "word": "can't wait",
+          "meaning": "to be very excited about something that will happen soon"
         }
-      ]
+      ],
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "som_tam_poo"
     }
   },
   "r4": {
     "start": {
-      "text": "Bonjour! Such a charming café. Do you have any seasonal pastries today?",
-      "choices": [
-        {
-          "text": "Bonjour! Yes, our Berry Macaron Tower is perfect for this season.",
-          "next": "recommend_macaron",
-          "moodChange": 1,
-          "tip": "Lovely! You answered the question ('Yes') and gave a specific recommendation with a reason ('perfect for this season')."
-        },
-        {
-          "text": "We just have what's in the display case.",
-          "next": "rude_start",
-          "moodChange": -2,
-          "tip": "This is unhelpful. Even if the choice is limited, describe something: 'Today we have…'"
-        }
-      ],
+      "text": "Bonjour! What a charming café. Do you have any seasonal desserts today?",
       "vocab": [
         {
           "word": "charming",
@@ -616,152 +688,296 @@
         {
           "word": "seasonal",
           "meaning": "available only at a particular time of year"
-        },
-        {
-          "word": "pastries",
-          "meaning": "sweet baked foods such as croissants or tarts"
-        }
-      ]
-    },
-    "recommend_macaron": {
-      "text": "A Berry Macaron Tower? Oh, that sounds simply divine! Is it very sweet?",
-      "choices": [
-        {
-          "text": "It has a perfect balance of sweetness from the macarons and tartness from fresh berries.",
-          "next": "order_macaron",
-          "moodChange": 1,
-          "tip": "Excellent description! 'A perfect balance of A and B' is an advanced way to describe flavour."
-        },
-        {
-          "text": "Yes, it's sugar basically.",
-          "next": "order_macaron_bad",
-          "moodChange": -1,
-          "tip": "'Basically sugar' sounds negative and lazy. Describe the taste politely: 'It's quite sweet, but…'"
         }
       ],
-      "vocab": [
+      "choices": [
         {
-          "word": "divine",
-          "meaning": "extremely good or delicious (informal)"
+          "text": "Bonjour, madame! Yes, this season we're serving a Berry Macaron Tower with fresh strawberries.",
+          "next": "describe",
+          "moodChange": 1,
+          "tip": "Lovely! You greeted her in her style ('Bonjour, madame') and answered with a specific seasonal dessert."
+        },
+        {
+          "text": "We have a macaron tower.",
+          "next": "describe",
+          "moodChange": 0,
+          "tip": "Correct, but it doesn't sound special. Mention why it's seasonal, for example the fresh berries."
+        },
+        {
+          "text": "Everything is in the display case. You can look yourself.",
+          "next": "rude_start",
+          "moodChange": -2,
+          "tip": "Unwelcoming. 'You can look yourself' tells the guest you won't help. Offer to explain the desserts instead."
         }
       ]
     },
     "rude_start": {
-      "text": "Oh... I see. I suppose I'll just take the Macaron Tower then.",
+      "text": "Oh... I was hoping for a little help. What is the macaron tower, then?",
       "choices": [
         {
-          "text": "Right away. I'll make sure it's plated beautifully.",
-          "next": "order_macaron",
+          "text": "I apologize, madame. It's a tower of pink, green and yellow macarons with fresh berries on top.",
+          "next": "sweetness",
           "moodChange": 1,
-          "tip": "Good! 'Right away' plus a promise ('I'll make sure…') shows care and builds trust."
+          "tip": "Good recovery. 'I apologize' is more formal than 'sorry' and suits a café like this one."
         },
         {
-          "text": "Okay.",
-          "next": "order_macaron_bad",
+          "text": "It's macarons in a tower.",
+          "next": "sweetness",
+          "moodChange": 0,
+          "tip": "Too short. Describe the colors or the berries to make it sound attractive."
+        },
+        {
+          "text": "It's the tall one in the case.",
+          "next": "sweetness",
           "moodChange": -1,
-          "tip": "A one-word answer like 'Okay.' can feel cold. Add a little more: 'Of course, I'll bring it right away.'"
+          "tip": "She asked what it is, not where it is. Describe the dessert."
         }
       ]
     },
-    "order_macaron": {
-      "text": "Wonderful. I'll have an Earl Grey tea to pair with it, please.",
-      "action": "start_cooking",
-      "recipeId": "macaron_tower",
-      "choices": [],
+    "describe": {
+      "text": "How lovely! Could you tell me what the macarons are made of?",
       "vocab": [
         {
-          "word": "pair with",
-          "meaning": "to serve one food or drink together with another because they go well together"
+          "word": "made of",
+          "meaning": "the materials or ingredients used to make something"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Certainly. They're made of almond flour, egg whites and sugar, and we put fresh berries on top.",
+          "next": "sweetness",
+          "moodChange": 1,
+          "tip": "Excellent. 'Certainly' is a polite word for 'yes', and you listed the ingredients clearly."
+        },
+        {
+          "text": "Macarons and berries.",
+          "next": "sweetness",
+          "moodChange": 0,
+          "tip": "This doesn't answer 'made of'. Name the ingredients: almond flour, egg whites, sugar."
+        },
+        {
+          "text": "I'm not sure. The baker makes them.",
+          "next": "sweetness",
+          "moodChange": -1,
+          "tip": "Staff should know the menu. If you really don't know, say 'Let me check for you.'"
         }
       ]
     },
-    "order_macaron_bad": {
-      "text": "I hope it's at least edible.",
-      "action": "start_cooking",
-      "recipeId": "macaron_tower",
-      "choices": [],
+    "sweetness": {
+      "text": "It sounds wonderful, but is it very sweet? I don't really enjoy desserts that are too sugary.",
       "vocab": [
         {
-          "word": "edible",
-          "meaning": "safe or good enough to eat"
+          "word": "sugary",
+          "meaning": "containing a lot of sugar"
+        }
+      ],
+      "choices": [
+        {
+          "text": "The macarons are sweet, but the berries are slightly sour, so the flavor is nicely balanced.",
+          "next": "drink",
+          "moodChange": 1,
+          "tip": "Great B1 language! 'X, but Y, so Z' explains a contrast and its result in one sentence."
+        },
+        {
+          "text": "It's a little sweet.",
+          "next": "drink",
+          "moodChange": 0,
+          "tip": "OK. Explaining why it isn't too sweet would make her feel more confident."
+        },
+        {
+          "text": "It's a dessert. Of course it's sweet.",
+          "next": "drink",
+          "moodChange": -1,
+          "tip": "This sounds like you think her question is silly. Answer the concern she has."
         }
       ]
+    },
+    "drink": {
+      "text": "That sounds perfect. Which drink would you suggest to go with it?",
+      "vocab": [
+        {
+          "word": "go with",
+          "meaning": "to taste or look good together"
+        }
+      ],
+      "choices": [
+        {
+          "text": "I'd suggest Earl Grey tea. Its light flavor pairs beautifully with the berries.",
+          "next": "occasion",
+          "moodChange": 1,
+          "tip": "Very elegant. 'I'd suggest…' is a polite recommendation, and 'pairs with' is used for food and drink that taste good together."
+        },
+        {
+          "text": "Tea or coffee is fine.",
+          "next": "occasion",
+          "moodChange": 0,
+          "tip": "She asked for your suggestion, so choose one and give a reason."
+        },
+        {
+          "text": "Whatever you want. The drinks are on the menu.",
+          "next": "occasion",
+          "moodChange": -1,
+          "tip": "'Whatever you want' sounds like you don't care. Make a real suggestion."
+        }
+      ]
+    },
+    "occasion": {
+      "text": "Merci. Oh, it's my granddaughter's birthday today. Would it be possible to add a candle?",
+      "vocab": [
+        {
+          "word": "Would it be possible",
+          "meaning": "a very polite way to ask for something"
+        },
+        {
+          "word": "candle",
+          "meaning": "a stick of wax that you light, often put on a birthday cake"
+        }
+      ],
+      "choices": [
+        {
+          "text": "How wonderful! Of course, I'd be happy to add a candle. Please wish her a happy birthday from us.",
+          "next": "confirm",
+          "moodChange": 1,
+          "tip": "Warm and professional. 'I'd be happy to…' agrees to a request politely, and the birthday wish is a kind touch."
+        },
+        {
+          "text": "Yes, we can add one.",
+          "next": "confirm",
+          "moodChange": 0,
+          "tip": "Fine, but a special occasion is a chance to be extra friendly."
+        },
+        {
+          "text": "We don't usually do that.",
+          "next": "confirm",
+          "moodChange": -1,
+          "tip": "If something is unusual but possible, try to help anyway. Small kindnesses make guests come back."
+        }
+      ]
+    },
+    "confirm": {
+      "text": "Wonderful. One Berry Macaron Tower and a pot of Earl Grey, please.",
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "macaron_tower"
     }
   },
   "r5": {
     "start": {
-      "text": "Hey there! I'm starved. Got any good burgers?",
-      "choices": [
-        {
-          "text": "You bet! Our Classic Cheeseburger is the best in town.",
-          "next": "recommend_burger",
-          "moodChange": 1,
-          "tip": "Great energy! 'You bet!' is informal but friendly, which matches this casual diner. 'Best in town' is a confident recommendation."
-        },
-        {
-          "text": "Yeah, burgers are on the menu.",
-          "next": "rude_start",
-          "moodChange": -1,
-          "tip": "Correct but flat. The customer is excited; answer with energy and recommend something specific."
-        }
-      ],
+      "text": "Hey there! I'm absolutely starving. What's the best thing on your menu?",
       "vocab": [
         {
-          "word": "starved",
+          "word": "starving",
           "meaning": "very hungry (informal)"
+        },
+        {
+          "word": "absolutely",
+          "meaning": "completely; used to make a word stronger"
         }
-      ]
-    },
-    "recommend_burger": {
-      "text": "Awesome! Load it up with a beef patty and lots of cheese.",
+      ],
       "choices": [
         {
-          "text": "Coming right up, hot and fresh off the grill!",
-          "next": "hold",
+          "text": "Welcome to Route 66! Our Classic Cheeseburger is the most popular dish we serve.",
+          "next": "recommend",
           "moodChange": 1,
-          "tip": "Energetic and friendly. 'Fresh off the grill' makes the burger sound delicious."
+          "tip": "Great welcome. The superlative 'the most popular' is a strong way to recommend something."
+        },
+        {
+          "text": "People usually order the cheeseburger.",
+          "next": "recommend",
+          "moodChange": 0,
+          "tip": "Helpful, but add a welcome and make it sound exciting."
+        },
+        {
+          "text": "Burgers. It's a diner.",
+          "next": "rude_start",
+          "moodChange": -1,
+          "tip": "This sounds like the question was stupid. Every guest deserves a friendly answer."
         }
       ]
     },
     "rude_start": {
-      "text": "Alright, alright. I'll just take a Classic Cheeseburger.",
+      "text": "Wow, okay. I guess I'll have the cheeseburger, then.",
       "choices": [
         {
-          "text": "Sure thing. Give me a minute.",
-          "next": "hold",
+          "text": "Sorry, that came out wrong. Our cheeseburger is excellent, and I'll make it fresh for you.",
+          "next": "cook",
+          "moodChange": 1,
+          "tip": "Good recovery. 'That came out wrong' is a natural way to apologize for how you said something."
+        },
+        {
+          "text": "One cheeseburger.",
+          "next": "cook",
+          "moodChange": 0,
+          "tip": "Correct, but she sounds a little hurt. An apology would help."
+        },
+        {
+          "text": "Good. It's quick to make.",
+          "next": "cook",
           "moodChange": -1,
-          "tip": "OK, but a little flat. A warmer reply: 'Great choice! Coming right up.'"
+          "tip": "This makes it sound like you chose for your own convenience, not for the customer."
         }
       ]
     },
-    "order_burger": {
-      "text": "Can't wait! My stomach is rumbling.",
-      "action": "start_cooking",
-      "recipeId": "cheeseburger",
-      "choices": [],
+    "recommend": {
+      "text": "Sounds great. What exactly comes with it?",
       "vocab": [
         {
-          "word": "rumbling",
-          "meaning": "making a low, continuous sound, like an empty stomach"
+          "word": "comes with",
+          "meaning": "is served together with"
+        }
+      ],
+      "choices": [
+        {
+          "text": "It comes with a grilled beef patty, melted cheese, lettuce and tomato on a toasted bun.",
+          "next": "cook",
+          "moodChange": 1,
+          "tip": "Excellent detail. Past participles like 'grilled', 'melted' and 'toasted' make food sound delicious."
+        },
+        {
+          "text": "Beef, cheese and vegetables.",
+          "next": "cook",
+          "moodChange": 0,
+          "tip": "Correct, but a little plain. Describe how each part is cooked."
+        },
+        {
+          "text": "The normal burger things.",
+          "next": "cook",
+          "moodChange": -1,
+          "tip": "Too vague. She asked 'what exactly', so give exact details."
+        }
+      ]
+    },
+    "cook": {
+      "text": "How do you cook the patty? I really don't like it pink inside.",
+      "vocab": [
+        {
+          "word": "patty",
+          "meaning": "a flat, round piece of meat for a burger"
+        }
+      ],
+      "choices": [
+        {
+          "text": "We season it and grill it on both sides until it's cooked all the way through.",
+          "next": "hold",
+          "moodChange": 1,
+          "tip": "Clear process language: 'until it's cooked all the way through' answers her worry exactly."
+        },
+        {
+          "text": "We grill it well.",
+          "next": "hold",
+          "moodChange": 0,
+          "tip": "OK. Explaining that it won't be pink inside would reassure her more."
+        },
+        {
+          "text": "Pink is how it's supposed to be.",
+          "next": "hold",
+          "moodChange": -1,
+          "tip": "Don't tell a customer their preference is wrong. Cook it the way she likes."
         }
       ]
     },
     "hold": {
-      "text": "Oh, and could you hold the lettuce? I'm not a fan.",
-      "choices": [
-        {
-          "text": "Sure thing! One cheeseburger, no lettuce.",
-          "next": "order_burger_no_lettuce",
-          "moodChange": 1,
-          "tip": "Perfect! You repeated the change to the order so there's no mistake."
-        },
-        {
-          "text": "Lettuce is healthy, you know.",
-          "next": "order_burger",
-          "moodChange": -1,
-          "tip": "Don't argue with the customer. Just say: 'No problem, no lettuce.'"
-        }
-      ],
+      "text": "Perfect. Oh, and could you hold the lettuce? I'm not a fan.",
       "vocab": [
         {
           "word": "hold the lettuce",
@@ -771,19 +987,103 @@
           "word": "not a fan",
           "meaning": "don't like something very much"
         }
+      ],
+      "choices": [
+        {
+          "text": "Absolutely. One cheeseburger with no lettuce. Is there anything else I can get you?",
+          "next": "wait",
+          "moodChange": 1,
+          "tip": "Professional. You repeated the order to confirm it and offered more help."
+        },
+        {
+          "text": "OK, no lettuce.",
+          "next": "wait",
+          "moodChange": 0,
+          "tip": "Correct. Repeating the whole order helps avoid mistakes."
+        },
+        {
+          "text": "Lettuce is healthy, you know. I'll leave it on.",
+          "next": "wait_lettuce",
+          "moodChange": -1,
+          "tip": "Ignoring a request is a serious service mistake. You can share an opinion, but do what the customer asks."
+        }
       ]
     },
-    "order_burger_no_lettuce": {
-      "text": "Can't wait! My stomach is rumbling.",
-      "action": "start_cooking",
-      "recipeId": "cheeseburger_no_lettuce",
-      "choices": [],
+    "wait": {
+      "text": "That's all, thanks. I'm in a bit of a hurry, though. How long is the wait right now?",
+      "vocab": [
+        {
+          "word": "in a bit of a hurry",
+          "meaning": "needing to do things a little quickly"
+        }
+      ],
+      "choices": [
+        {
+          "text": "It's a little busy, but it'll be ready in about ten minutes. Thank you for your patience.",
+          "next": "confirm_no_lettuce",
+          "moodChange": 1,
+          "tip": "Excellent. You were honest about being busy, gave a time, and thanked her: 'Thank you for your patience.'"
+        },
+        {
+          "text": "Around ten minutes.",
+          "next": "confirm_no_lettuce",
+          "moodChange": 0,
+          "tip": "Clear. Thanking her for waiting would make it friendlier."
+        },
+        {
+          "text": "We're busy. It'll be ready when it's ready.",
+          "next": "confirm_no_lettuce",
+          "moodChange": -1,
+          "tip": "This sounds annoyed and gives no real information."
+        }
+      ]
+    },
+    "wait_lettuce": {
+      "text": "Ugh, fine. Just be quick. I'm in a hurry.",
+      "choices": [
+        {
+          "text": "Of course. It'll be ready in about ten minutes.",
+          "next": "confirm_lettuce",
+          "moodChange": 1,
+          "tip": "Polite and clear. (But remember: next time, follow the customer's request!)"
+        },
+        {
+          "text": "OK.",
+          "next": "confirm_lettuce",
+          "moodChange": 0,
+          "tip": "Too short when the customer is unhappy."
+        },
+        {
+          "text": "Everyone's in a hurry.",
+          "next": "confirm_lettuce",
+          "moodChange": -1,
+          "tip": "This makes the customer feel unimportant."
+        }
+      ]
+    },
+    "confirm_no_lettuce": {
+      "text": "Thanks! My stomach is rumbling already.",
       "vocab": [
         {
           "word": "rumbling",
-          "meaning": "making a long, low sound (a hungry stomach)"
+          "meaning": "making a long, low sound, like a hungry stomach"
         }
-      ]
+      ],
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "cheeseburger_no_lettuce"
+    },
+    "confirm_lettuce": {
+      "text": "Whatever. My stomach is rumbling anyway.",
+      "vocab": [
+        {
+          "word": "rumbling",
+          "meaning": "making a long, low sound, like a hungry stomach"
+        }
+      ],
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "cheeseburger"
     }
   },
   "r1-emma": {
@@ -1186,228 +1486,478 @@
   },
   "r3-mai": {
     "start": {
-      "text": "Hi! Before I order, I should tell you: I'm allergic to peanuts.",
-      "choices": [
-        {
-          "text": "Thank you for telling me. I'll make your som tam without peanuts.",
-          "next": "menu",
-          "moodChange": 1,
-          "tip": "Excellent! Thank the customer and confirm you can help. Allergies are serious."
-        },
-        {
-          "text": "Just pick them out if you see any.",
-          "next": "menu",
-          "moodChange": -2,
-          "tip": "Dangerous and rude. Even a small amount can make someone very sick. Leave the allergen out completely."
-        }
-      ],
+      "text": "Hi! Before I order, I need to tell you something important. I'm allergic to peanuts.",
       "vocab": [
         {
           "word": "allergic",
           "meaning": "having a bad reaction to something you eat or touch"
+        },
+        {
+          "word": "important",
+          "meaning": "something you need to pay attention to"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Thank you for letting me know. I'll make sure there are no peanuts in your food.",
+          "next": "check",
+          "moodChange": 1,
+          "tip": "Excellent. 'Thank you for letting me know' welcomes the information, and 'I'll make sure…' promises action."
+        },
+        {
+          "text": "OK, no peanuts.",
+          "next": "check",
+          "moodChange": 0,
+          "tip": "Correct, but for an allergy, a careful and reassuring answer is better: 'I'll make sure…'"
+        },
+        {
+          "text": "Just pick them out if you see any.",
+          "next": "upset",
+          "moodChange": -2,
+          "tip": "Dangerous and rude. A person with an allergy can get very sick from even a small piece. Always take allergies seriously."
+        }
+      ]
+    },
+    "upset": {
+      "text": "Picking them out isn't enough. Even a tiny piece could make me very sick!",
+      "vocab": [
+        {
+          "word": "tiny",
+          "meaning": "very small"
+        }
+      ],
+      "choices": [
+        {
+          "text": "I'm so sorry, you're right. I'll use clean tools and leave the peanuts out completely.",
+          "next": "check",
+          "moodChange": 1,
+          "tip": "Good recovery. You apologized, agreed with her, and explained exactly what you will do."
+        },
+        {
+          "text": "Fine, I won't add any.",
+          "next": "check",
+          "moodChange": 0,
+          "tip": "'Fine' sounds annoyed. Add an apology: 'I'm sorry, you're right.'"
+        },
+        {
+          "text": "I've never seen anyone get sick from it.",
+          "next": "check",
+          "moodChange": -1,
+          "tip": "Never argue about allergies. The customer knows her body; your job is to keep her safe."
+        }
+      ]
+    },
+    "check": {
+      "text": "Thank you. Which salads on your menu are made without peanuts?",
+      "vocab": [
+        {
+          "word": "made without",
+          "meaning": "prepared with no amount of a certain ingredient"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Most of our salads use peanuts, but I can make the Som Tam Thai without them. It's sweet and sour.",
+          "next": "menu",
+          "moodChange": 1,
+          "tip": "Very good. You were honest ('most… use peanuts') and then offered a solution with 'but I can…'."
+        },
+        {
+          "text": "Som Tam Thai, if I take out the peanuts.",
+          "next": "menu",
+          "moodChange": 0,
+          "tip": "Correct. Describing the dish would help her decide."
+        },
+        {
+          "text": "All of them. That's how we make them.",
+          "next": "menu",
+          "moodChange": -1,
+          "tip": "This gives her no choice. Try to find a way to help: 'but I can make… without them.'"
         }
       ]
     },
     "menu": {
-      "text": "Thanks. I'd like the Som Tam Thai, the sweet and sour one.",
-      "choices": [
-        {
-          "text": "Great choice. It has dried shrimp, tomatoes and palm sugar.",
-          "next": "spice",
-          "moodChange": 1,
-          "tip": "Nice! Naming the ingredients helps her check the dish is safe for her."
-        },
-        {
-          "text": "OK. Peanuts are the best part, though.",
-          "next": "spice",
-          "moodChange": -2,
-          "tip": "Insensitive. She just told you she's allergic. Never push an allergen."
-        }
-      ],
+      "text": "Sweet and sour sounds lovely. What's in it?",
       "vocab": [
         {
           "word": "sweet and sour",
           "meaning": "tasting of sugar and of something like lime at the same time"
         }
+      ],
+      "choices": [
+        {
+          "text": "It has green papaya, dried shrimp, tomatoes, lime and palm sugar.",
+          "next": "spice",
+          "moodChange": 1,
+          "tip": "Clear and complete! Listing the ingredients helps a customer with allergies feel safe."
+        },
+        {
+          "text": "Papaya and some other things.",
+          "next": "spice",
+          "moodChange": 0,
+          "tip": "'Some other things' is not clear enough, especially for someone with an allergy. Name the ingredients."
+        },
+        {
+          "text": "The usual stuff.",
+          "next": "spice",
+          "moodChange": -1,
+          "tip": "Too vague and too casual. She needs to know exactly what is in her food."
+        }
       ]
     },
     "spice": {
-      "text": "How spicy is it? I can't eat very spicy food.",
-      "choices": [
-        {
-          "text": "I can make it mild with just one chili.",
-          "next": "confirm",
-          "moodChange": 1,
-          "tip": "Clear answer! 'Mild' and 'one chili' tell her exactly what to expect."
-        },
-        {
-          "text": "Thai food is always spicy.",
-          "next": "confirm",
-          "moodChange": -1,
-          "tip": "Not helpful, and not true. Offer a choice: 'I can make it mild.'"
-        }
-      ],
+      "text": "Mmm. I'm not used to very spicy food, though. Can you make it mild?",
       "vocab": [
         {
-          "word": "spicy",
-          "meaning": "having a hot, burning taste"
+          "word": "not used to",
+          "meaning": "not familiar with something because you don't do or have it often"
+        },
+        {
+          "word": "mild",
+          "meaning": "not strong or not very spicy"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Of course. I'll use just one chili, so it will be mild but still tasty.",
+          "next": "confirm",
+          "moodChange": 1,
+          "tip": "Perfect. 'Of course' is friendly, and 'so it will be…' explains the result of your choice."
+        },
+        {
+          "text": "I'll use one chili.",
+          "next": "confirm",
+          "moodChange": 0,
+          "tip": "Good answer. Adding 'Of course' makes it warmer."
+        },
+        {
+          "text": "Som tam without chili isn't real som tam.",
+          "next": "confirm",
+          "moodChange": -1,
+          "tip": "Don't criticize what the customer wants. Respect her preference."
         }
       ]
     },
     "confirm": {
-      "text": "One chili and no peanuts, please. Thank you!",
+      "text": "Perfect. One Som Tam Thai, one chili and no peanuts. Thank you for being so careful!",
+      "vocab": [
+        {
+          "word": "careful",
+          "meaning": "giving attention to avoid mistakes or danger"
+        }
+      ],
+      "choices": [],
       "action": "start_cooking",
-      "recipeId": "som_tam_thai_no_peanuts",
-      "choices": []
+      "recipeId": "som_tam_thai_no_peanuts"
     }
   },
   "r4-chloe": {
     "start": {
-      "text": "Good morning! Are you still serving breakfast?",
-      "choices": [
-        {
-          "text": "Good morning! Yes, we serve breakfast until eleven.",
-          "next": "menu",
-          "moodChange": 1,
-          "tip": "Clear and friendly. Giving the time ('until eleven') answers the question fully."
-        },
-        {
-          "text": "It's almost eleven. Hurry up.",
-          "next": "menu",
-          "moodChange": -1,
-          "tip": "Rude. Never rush a customer. Just tell them the time politely."
-        }
-      ],
+      "text": "Good morning! Am I too late for breakfast? Some cafés stop serving it at ten.",
       "vocab": [
         {
-          "word": "breakfast",
-          "meaning": "the first meal of the day"
+          "word": "too late",
+          "meaning": "after the time when something can happen"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Good morning! Not at all. We serve breakfast until eleven, so you have plenty of time.",
+          "next": "menu",
+          "moodChange": 1,
+          "tip": "Great. 'Not at all' is a friendly answer, and 'so you have plenty of time' makes her feel relaxed."
+        },
+        {
+          "text": "No, breakfast is until eleven.",
+          "next": "menu",
+          "moodChange": 0,
+          "tip": "Clear, but a little cold. Start with a greeting: 'Good morning!'"
+        },
+        {
+          "text": "You're almost late. Please order quickly.",
+          "next": "menu",
+          "moodChange": -1,
+          "tip": "This puts pressure on the customer. She still has time, so tell her that."
         }
       ]
     },
     "menu": {
-      "text": "Great! I'd love something fluffy and sweet.",
-      "choices": [
-        {
-          "text": "Our pancakes are light and fluffy. They come with butter and maple syrup.",
-          "next": "fruit",
-          "moodChange": 1,
-          "tip": "Great description! 'Light and fluffy' matches exactly what she asked for."
-        },
-        {
-          "text": "We have pancakes. They're fine.",
-          "next": "fruit",
-          "moodChange": -1,
-          "tip": "'They're fine' doesn't make anyone hungry. Describe the food: 'light and fluffy'."
-        }
-      ],
+      "text": "Lucky me! I'm in the mood for something fluffy and sweet. What do you suggest?",
       "vocab": [
+        {
+          "word": "in the mood for",
+          "meaning": "wanting to have or do something at the moment"
+        },
         {
           "word": "fluffy",
           "meaning": "soft and light, full of air"
         }
+      ],
+      "choices": [
+        {
+          "text": "Our pancakes are light and fluffy, and they're served with butter and maple syrup.",
+          "next": "time",
+          "moodChange": 1,
+          "tip": "Excellent. You repeated her word 'fluffy' and used the passive 'are served with' to describe the dish."
+        },
+        {
+          "text": "We have pancakes.",
+          "next": "time",
+          "moodChange": 0,
+          "tip": "Correct, but describe them so they sound delicious."
+        },
+        {
+          "text": "Everything here is sweet. Just look at the menu.",
+          "next": "time",
+          "moodChange": -1,
+          "tip": "She asked for your suggestion. Sending her to the menu is unhelpful."
+        }
+      ]
+    },
+    "time": {
+      "text": "Pancakes sound amazing! I have a meeting at nine thirty, though. How long will they take?",
+      "vocab": [
+        {
+          "word": "meeting",
+          "meaning": "a time when people come together to talk about work or plans"
+        }
+      ],
+      "choices": [
+        {
+          "text": "They'll be ready in about ten minutes, so you won't be late for your meeting.",
+          "next": "fruit",
+          "moodChange": 1,
+          "tip": "Perfect. 'They'll be ready in about…' gives a clear time, and you connected it to her meeting."
+        },
+        {
+          "text": "About ten minutes.",
+          "next": "fruit",
+          "moodChange": 0,
+          "tip": "Clear and correct. Adding 'They'll be ready in…' sounds more natural."
+        },
+        {
+          "text": "It depends. Maybe twenty minutes, maybe more.",
+          "next": "fruit",
+          "moodChange": -1,
+          "tip": "Uncertain times make busy customers worried. Give your best clear estimate."
+        }
       ]
     },
     "fruit": {
-      "text": "Pancakes, yes please! Which fruit would you recommend on top?",
-      "choices": [
-        {
-          "text": "The strawberries are very fresh this week.",
-          "next": "confirm_straw",
-          "moodChange": 1,
-          "tip": "Nice! 'This week' tells her the fruit is special right now."
-        },
-        {
-          "text": "Blueberries go really well with maple syrup.",
-          "next": "confirm_blue",
-          "moodChange": 1,
-          "tip": "Good! 'Go well with' means two foods taste good together."
-        }
-      ],
+      "text": "Great! And which fruit would you recommend on top?",
       "vocab": [
         {
           "word": "on top",
           "meaning": "placed on the highest part of something"
         }
+      ],
+      "choices": [
+        {
+          "text": "The strawberries are very fresh this week. They're sweet and juicy.",
+          "next": "confirm_straw",
+          "moodChange": 1,
+          "tip": "Good recommendation with a reason ('very fresh this week') and two adjectives."
+        },
+        {
+          "text": "Blueberries are a great choice. They go really well with maple syrup.",
+          "next": "confirm_blue",
+          "moodChange": 1,
+          "tip": "Good recommendation. 'Go really well with' explains why they taste good together."
+        },
+        {
+          "text": "I don't care. Just pick one.",
+          "next": "pick_blue",
+          "moodChange": -1,
+          "tip": "'I don't care' sounds rude. She asked for your opinion, so give one."
+        }
       ]
     },
     "confirm_straw": {
       "text": "Strawberries it is! Thank you so much.",
+      "choices": [],
       "action": "start_cooking",
-      "recipeId": "pancakes_strawberry",
-      "choices": []
+      "recipeId": "pancakes_strawberry"
     },
     "confirm_blue": {
       "text": "Mmm, blueberries! Thank you so much.",
+      "choices": [],
       "action": "start_cooking",
-      "recipeId": "pancakes_blueberry",
-      "choices": []
+      "recipeId": "pancakes_blueberry"
+    },
+    "pick_blue": {
+      "text": "Oh... okay. Blueberries, then, I guess.",
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "pancakes_blueberry"
     }
   },
   "r5-hank": {
     "start": {
-      "text": "Howdy! Just a side of fries for me. How long will that take?",
-      "choices": [
-        {
-          "text": "About five minutes. We cut them fresh.",
-          "next": "salt",
-          "moodChange": 1,
-          "tip": "Great! A clear time plus a reason the food is good ('we cut them fresh')."
-        },
-        {
-          "text": "As long as it takes.",
-          "next": "salt",
-          "moodChange": -1,
-          "tip": "Unclear and a bit rude. Give a time: 'About five minutes.'"
-        }
-      ],
+      "text": "Howdy, partner! Just a side of fries for me. Last time I came here, they were cold.",
       "vocab": [
         {
           "word": "side",
           "meaning": "a small extra dish served with a meal"
         }
+      ],
+      "choices": [
+        {
+          "text": "I'm sorry to hear that. I'll make sure your fries come out hot and crispy today.",
+          "next": "time",
+          "moodChange": 1,
+          "tip": "Perfect complaint handling: say sorry ('I'm sorry to hear that') and promise to fix it ('I'll make sure…')."
+        },
+        {
+          "text": "They'll be hot today.",
+          "next": "time",
+          "moodChange": 0,
+          "tip": "A promise is good, but start with an apology when a guest complains."
+        },
+        {
+          "text": "That wasn't my shift.",
+          "next": "grumpy",
+          "moodChange": -2,
+          "tip": "Blaming someone else never helps. The guest just wants a good experience."
+        }
+      ]
+    },
+    "grumpy": {
+      "text": "Well, that's not much of an apology, is it?",
+      "vocab": [
+        {
+          "word": "apology",
+          "meaning": "words that say you are sorry"
+        }
+      ],
+      "choices": [
+        {
+          "text": "You're right, and I apologize. I'll cook a fresh batch just for you.",
+          "next": "time",
+          "moodChange": 1,
+          "tip": "Great recovery: agree ('You're right'), apologize, then offer something special."
+        },
+        {
+          "text": "Sorry.",
+          "next": "time",
+          "moodChange": 0,
+          "tip": "Better than nothing, but a real apology also says what you will do."
+        },
+        {
+          "text": "I already said it wasn't me.",
+          "next": "time",
+          "moodChange": -1,
+          "tip": "Arguing makes a complaint worse."
+        }
+      ]
+    },
+    "time": {
+      "text": "Alright. How long will they take? I'm meeting a friend at noon.",
+      "vocab": [
+        {
+          "word": "noon",
+          "meaning": "twelve o'clock in the middle of the day"
+        }
+      ],
+      "choices": [
+        {
+          "text": "About ten minutes. We peel and cut the potatoes fresh, so they taste much better.",
+          "next": "salt",
+          "moodChange": 1,
+          "tip": "Excellent. You gave a time and explained why it's worth waiting."
+        },
+        {
+          "text": "Ten minutes.",
+          "next": "salt",
+          "moodChange": 0,
+          "tip": "Correct and clear, but a little short."
+        },
+        {
+          "text": "As long as it takes.",
+          "next": "salt",
+          "moodChange": -1,
+          "tip": "He told you he has plans. Give a clear time."
+        }
       ]
     },
     "salt": {
-      "text": "Sounds good. Could you go easy on the salt? Doctor's orders.",
-      "choices": [
-        {
-          "text": "No problem. I'll leave the salt off, and you can add your own.",
-          "next": "confirm_no_salt",
-          "moodChange": 1,
-          "tip": "Perfect! You followed his request and gave him a choice."
-        },
-        {
-          "text": "Fries need salt, trust me.",
-          "next": "confirm_salt",
-          "moodChange": -1,
-          "tip": "Don't argue, especially about health. Say: 'No problem, no salt.'"
-        }
-      ],
+      "text": "Sounds good. Could you go easy on the salt? My doctor says I should cut down.",
       "vocab": [
         {
           "word": "go easy on",
           "meaning": "use only a little of something"
+        },
+        {
+          "word": "cut down",
+          "meaning": "to eat, drink or use less of something"
+        }
+      ],
+      "choices": [
+        {
+          "text": "No problem. I'll leave the salt off, and you can add a little yourself if you want.",
+          "next": "sauce",
+          "moodChange": 1,
+          "tip": "Very good. You agreed and gave him control: 'you can add a little yourself if you want.'"
+        },
+        {
+          "text": "OK, less salt.",
+          "next": "sauce",
+          "moodChange": 0,
+          "tip": "Fine. 'No problem' sounds friendlier than 'OK'."
+        },
+        {
+          "text": "Trust me, fries need salt.",
+          "next": "sauce_salt",
+          "moodChange": -1,
+          "tip": "This is a health request. Never ignore it."
         }
       ]
     },
-    "confirm_no_salt": {
-      "text": "Much appreciated, partner.",
-      "action": "start_cooking",
-      "recipeId": "fries_no_salt",
-      "choices": [],
+    "sauce": {
+      "text": "Much appreciated. Do you have any sauces that aren't too salty?",
       "vocab": [
         {
           "word": "appreciated",
-          "meaning": "thanked; you are grateful for it"
+          "meaning": "something you are thankful for"
+        }
+      ],
+      "choices": [
+        {
+          "text": "Our homemade tomato sauce has less salt than ketchup. Would you like to try some?",
+          "next": "confirm_no_salt",
+          "moodChange": 1,
+          "tip": "Great. You compared ('less salt than ketchup') and offered with 'Would you like to…?'"
+        },
+        {
+          "text": "We have ketchup and mayo.",
+          "next": "confirm_no_salt",
+          "moodChange": 0,
+          "tip": "This doesn't answer 'not too salty'. Compare the sauces for him."
+        },
+        {
+          "text": "All sauces are salty.",
+          "next": "confirm_no_salt",
+          "moodChange": -1,
+          "tip": "Not true and not helpful. Look for an option that fits his needs."
         }
       ]
     },
-    "confirm_salt": {
-      "text": "Well... okay, then.",
+    "sauce_salt": {
+      "text": "Well... I guess one time won't hurt.",
+      "choices": [],
       "action": "start_cooking",
-      "recipeId": "fries",
-      "choices": []
+      "recipeId": "fries"
+    },
+    "confirm_no_salt": {
+      "text": "That'd be great. Much appreciated, partner.",
+      "vocab": [
+        {
+          "word": "much appreciated",
+          "meaning": "thank you very much"
+        }
+      ],
+      "choices": [],
+      "action": "start_cooking",
+      "recipeId": "fries_no_salt"
     }
   }
 }

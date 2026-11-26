@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGameplayStore, MOOD_HAPPY, MOOD_OK } from "@/lib/gameplayStore";
 import { useGameStore } from "@/lib/store";
+import { useContent } from "@/lib/content";
+import { saveLevelAttempt, attemptScore } from "@/lib/records";
 import restaurantsData from "@/data/restaurants.json";
-import dialoguesData from "@/data/dialogues.json";
 import recipesData from "@/data/recipes.json";
 import ingredientsData from "@/data/ingredients.json";
-import { Star, ArrowLeft, Trash2, Check, Undo2, X, Volume2, VolumeX, ChefHat } from "lucide-react";
+import { Star, ArrowLeft, Trash2, Check, Undo2, X, Volume2, VolumeX, ChefHat, Lock } from "lucide-react";
 import { sfx, isMuted, setMuted } from "@/lib/sfx";
 import { levelAssets, preloadAll, allLoaded } from "@/lib/preload";
-import { PlateStack, DishPreview, animFor, stepChangesPlate, topLayer, isMapStep } from "./Dish";
+import type { AnswerMode } from "@/lib/types";
+import { useHydrated } from "@/lib/useHydrated";
+import { PlateStack, DishPreview, animFor, stepChangesPlate, topLayer, isMapStep, type Final } from "./Dish";
 import StepAnimation from "./StepAnimation";
-import DialogueScene, { type Customer, type DialogueChoice } from "./DialogueScene";
+import DialogueScene, { type Customer, type DialogueChoice, type ReplyMeta } from "./DialogueScene";
 
 // Where a level takes place: the dining room behind the counter, the prep counter, and what the food sits on.
 interface Picture { image: string; size: string; position: string }
@@ -26,6 +30,8 @@ const SUSHI_SCENE: Scene = {
   plate: { image: "/assets/food/sushi/8.webp", size: "300% 200%", position: "50% 100%" },
 };
 const pictureStyle = (p: Picture): React.CSSProperties => ({ backgroundImage: `url('${p.image}')`, backgroundSize: p.size, backgroundPosition: p.position, backgroundRepeat: "no-repeat" });
+
+interface Recipe { targetDishName: string; correctSequence: string[]; final?: Final }
 
 // What the customer says while watching you cook, based on the latest step.
 const GOOD_LINES = ["Looks good!", "Nice!", "Mm, I can't wait!"];
@@ -54,27 +60,50 @@ export default function PlayScreen() {
     ? (restaurant as { customers?: Customer[] }).customers ?? [(restaurant as { customer?: Customer }).customer ?? { name: "Customer", spriteColumn: 2 }]
     : [];
   const customer = customers[customerIndex] ?? customers[0];
-  const dialogueTree = customer ? (dialoguesData as any)[customer.dialogue ?? restaurantId] : null;
+  const { dialogues, ready: contentReady } = useContent();
+  const dialogueTree = customer ? dialogues[customer.dialogue ?? restaurantId] : null;
+  const answerMode = ((restaurant as { answerMode?: AnswerMode } | undefined)?.answerMode) ?? "choose";
+  const unlocked = useGameStore((s) => s.progress[restaurantId]?.unlocked ?? false);
   const isLastCustomer = customerIndex >= customers.length - 1;
   const scene = (restaurant as { scene?: Scene } | undefined)?.scene ?? SUSHI_SCENE;
   const kitchen = (restaurant as { kitchen?: string } | undefined)?.kitchen ?? "sushi";
   const totalStars = served.length ? Math.round(served.reduce((sum, o) => sum + o.stars, 0) / served.length) : 0;
 
-  const recipe = currentRecipeId ? (recipesData as any)[currentRecipeId] : null;
+  const recipe = currentRecipeId ? (recipesData as Record<string, Recipe>)[currentRecipeId] : null;
 
   const { completeLevel } = useGameStore();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHydrated();
   const [added, setAdded] = useState<{ key: number; verb: string; name: string } | null>(null);
   const [soundOff, setSoundOff] = useState(isMuted);
   const [playing, setPlaying] = useState<{ id: string; name: string; icon: string } | null>(null);
+  const saved = useRef(false);
 
   useEffect(() => {
-    setMounted(true);
+    saved.current = false;
     if (restaurant) {
       startGame(restaurantId);
     }
     return () => resetGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurantId]);
+
+  // When the last guest is served, the level's result is saved (with every reply) and the next level opens.
+  useEffect(() => {
+    if (phase !== "result" || saved.current || !restaurant) return;
+    saved.current = true;
+    const guests = served.map((o, i) => ({
+      customer: customers[i]?.name ?? "",
+      dialogue: customers[i]?.dialogue ?? restaurantId,
+      recipeId: o.recipeId,
+      stars: o.stars,
+      mood: o.mood,
+      replies: o.replies,
+    }));
+    const levelScore = attemptScore(guests);
+    void saveLevelAttempt({ level_id: restaurantId, stars: totalStars, score: levelScore, guests });
+    if (totalStars > 0) completeLevel(restaurantId, totalStars, levelScore);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
 
   // The level waits behind a loading bar until its pictures are in, so nothing pops in mid-game.
   // Levels prefetched from the title or select screen are usually ready at once. A very slow
@@ -95,13 +124,16 @@ export default function PlayScreen() {
   }, [restaurantId]);
 
   if (!mounted || !restaurant) return null;
-  if (!ready) return <LoadingScreen name={restaurant.name} share={loadedShare} />;
+  if (!unlocked) return <LockedScreen name={restaurant.name} />;
+  if (!ready || !contentReady) return <LoadingScreen name={restaurant.name} share={loadedShare} />;
 
   const currentDialogue = dialogueTree ? dialogueTree[currentNodeId] : null;
 
   // --- ACTIONS ---
-  const handleChoice = (choice: DialogueChoice) => {
-    makeChoice(choice.next, choice.moodChange, currentDialogue.action || choice.action, currentDialogue.recipeId || choice.recipeId);
+  const handleChoice = (choice: DialogueChoice, meta: ReplyMeta) => {
+    if (!currentDialogue) return;
+    const reply = { node: currentNodeId, text: choice.text, moodChange: choice.moodChange, mode: meta.mode, hint: meta.hint, ...(meta.heard ? { heard: meta.heard } : {}) };
+    makeChoice(choice.next, choice.moodChange, currentDialogue.action || choice.action, currentDialogue.recipeId || choice.recipeId, reply);
   };
 
   const handleServe = () => {
@@ -119,12 +151,7 @@ export default function PlayScreen() {
     addIngredient(id);
   };
 
-  const handleFinish = () => {
-    if (totalStars > 0) {
-      completeLevel(restaurantId, totalStars);
-    }
-    router.push("/select");
-  };
+  const handleFinish = () => router.push("/select");
 
   // --- RENDERERS ---
   const renderHUD = () => (
@@ -138,9 +165,20 @@ export default function PlayScreen() {
           <p className="text-xs font-black tracking-widest text-orange-300 uppercase drop-shadow-md">Guest {customerIndex + 1} of {customers.length} · {customer.name}</p>
         </div>
       </div>
-      
+
+      <div className="flex items-center gap-2 md:gap-3 shrink-0 pointer-events-auto">
+      {answerMode === "speak" && (
+        <span className="hidden md:inline font-mitr text-xs text-white bg-black/30 border border-white/20 px-3 py-1.5 rounded-full">🎤 ด่านนี้พูดตอบ</span>
+      )}
+      <button
+        onClick={() => { setMuted(!soundOff); setSoundOff(!soundOff); }}
+        title={soundOff ? "Sound on" : "Sound off"}
+        className="p-2 bg-black/30 hover:bg-black/50 rounded-full text-white border border-white/20"
+      >
+        {soundOff ? <VolumeX size={18} /> : <Volume2 size={18} />}
+      </button>
       {/* Mood Bar utilizing 7.png icons */}
-      <div className="flex items-center gap-3 bg-black/30 px-3 md:px-4 py-2 rounded-full border border-white/20 shrink-0 pointer-events-auto">
+      <div className="flex items-center gap-3 bg-black/30 px-3 md:px-4 py-2 rounded-full border border-white/20 shrink-0">
         <div className={`w-8 h-8 ${customerMood >= MOOD_OK ? "bg-[url('/assets/food/sushi/7.webp')] bg-[length:400%_200%] bg-[position:0%_100%]" : "bg-[url('/assets/food/sushi/7.webp')] bg-[length:400%_200%] bg-[position:33.33%_100%]"} scale-125`} />
         <div className="w-20 md:w-32 h-4 bg-black/40 rounded-full overflow-hidden border border-white/10 shadow-inner">
           <motion.div 
@@ -149,6 +187,7 @@ export default function PlayScreen() {
             animate={{ width: `${customerMood}%` }}
           />
         </div>
+      </div>
       </div>
     </div>
   );
@@ -164,6 +203,7 @@ export default function PlayScreen() {
         customer={customer}
         background={scene.dining}
         customerMood={customerMood}
+        answerMode={answerMode}
         onChoose={handleChoice}
         onFinish={() => makeChoice("", 0, currentDialogue.action, currentDialogue.recipeId)}
       />
@@ -426,7 +466,7 @@ export default function PlayScreen() {
               <div key={i} className="hidden md:block relative w-32 shrink-0 bg-[#fffdf7] rounded-b-lg shadow-lg px-3 pt-4 pb-3 rotate-2">
                 <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-2 bg-stone-700 rounded-sm" />
                 <p className="text-[11px] font-black text-stone-400 uppercase truncate">{customers[i]?.name}</p>
-                <p className="text-xs font-bold text-stone-700 leading-tight">{(recipesData as any)[o.recipeId]?.targetDishName}</p>
+                <p className="text-xs font-bold text-stone-700 leading-tight">{(recipesData as Record<string, Recipe>)[o.recipeId]?.targetDishName}</p>
                 <div className="flex mt-1">
                   {[0, 1, 2].map((s) => <Star key={s} size={13} className={s < o.stars ? "text-yellow-400 fill-yellow-400" : "text-stone-300 fill-stone-200"} />)}
                 </div>
@@ -563,7 +603,7 @@ export default function PlayScreen() {
 
          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
            {served.map((o, i) => {
-             const dish = (recipesData as any)[o.recipeId];
+             const dish = (recipesData as Record<string, Recipe>)[o.recipeId];
              const guest = customers[i];
              return (
                <motion.div
@@ -646,6 +686,18 @@ export default function PlayScreen() {
           </motion.div>
         )}
       </AnimatePresence>
+    </main>
+  );
+}
+
+// Opening a level's link before passing the one before it.
+function LockedScreen({ name }: { name: string }) {
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center gap-5 bg-[radial-gradient(circle_at_50%_40%,#4a2a14,#1c1009_70%)] text-white px-8 text-center">
+      <Lock size={64} className="text-orange-300" />
+      <h1 className="font-luckiest-guy text-3xl md:text-5xl tracking-wider">{name}</h1>
+      <p className="font-mitr text-orange-100">ร้านนี้ยังล็อกอยู่ ผ่านร้านก่อนหน้าให้ได้อย่างน้อย 1 ดาวก่อนนะ</p>
+      <Link href="/select" className="font-mitr bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-2xl shadow-[0_5px_0_#9a3412]">กลับไปเลือกร้าน</Link>
     </main>
   );
 }

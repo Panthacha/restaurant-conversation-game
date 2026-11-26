@@ -1,33 +1,21 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, ScrollText, X, Lightbulb, ChevronRight } from "lucide-react";
+import { Volume2, VolumeX, ScrollText, X, Lightbulb, ChevronRight, Mic, MicOff, SendHorizontal, Eye } from "lucide-react";
 import { MOOD_HAPPY, MOOD_OK } from "@/lib/gameplayStore";
+import { speak as speakText, stopSpeaking } from "@/lib/tts";
+import { sfx } from "@/lib/sfx";
+import { canRecognizeSpeech, listen, matchReply, SPEECH_ERRORS } from "@/lib/speech";
+import vocabData from "@/data/vocab.json";
+import IngredientPicture from "@/components/IngredientPicture";
+import { CefrBadge } from "@/components/AppShell";
+import type { AnswerMode, Customer, DialogueChoice, DialogueNode, ReplyRecord, VocabEntry } from "@/lib/types";
 
-export interface DialogueChoice {
-  text: string;
-  next: string;
-  moodChange: number;
-  tip?: string;
-  action?: string;
-  recipeId?: string;
-}
+export type { Customer, DialogueChoice, DialogueNode };
 
-export interface DialogueNode {
-  text: string;
-  choices?: DialogueChoice[];
-  vocab?: { word: string; meaning: string }[];
-  action?: string;
-  recipeId?: string;
-}
-
-export interface Customer {
-  name: string;
-  spriteColumn: number; // column in /assets/food/sushi/4.webp (0 = chef)
-  gender?: "male" | "female";
-  dialogue?: string; // dialogue tree id in dialogues.json (defaults to the restaurant id)
-}
+// How a reply was given, saved with the learner's results.
+export type ReplyMeta = Pick<ReplyRecord, "mode" | "hint" | "heard"> & { score?: number };
 
 type Expression = "happy" | "neutral" | "upset";
 type LogEntry = { speaker: "customer" | "chef"; text: string };
@@ -37,13 +25,15 @@ interface DialogueSceneProps {
   node: DialogueNode;
   customer: Customer;
   customerMood: number;
+  answerMode?: AnswerMode; // "speak": say or type the reply, with the choices as a hint
   background?: string; // dining room picture; the sushi bar when not given
-  onChoose: (choice: DialogueChoice) => void;
+  onChoose: (choice: DialogueChoice, meta: ReplyMeta) => void;
   onFinish: () => void;
 }
 
 const TYPE_SPEED_MS = 28;
 const CHEF_COLUMN = 0;
+const VOCAB = new Map((vocabData as VocabEntry[]).map((v) => [v.word.toLowerCase(), v]));
 
 // 4.png is a 4x3 sheet: columns are characters, rows are happy / neutral / upset.
 function spriteStyle(column: number, expression: Expression): React.CSSProperties {
@@ -75,31 +65,8 @@ function seededShuffle<T>(items: T[], seed: string): T[] {
   return out;
 }
 
-// Voice names that hint at gender across macOS, Windows and Chrome.
-const MALE_VOICES = /\b(male|daniel|alex|fred|aaron|arthur|gordon|rishi|tom|oliver|david|mark|guy|james|george|ryan)\b/i;
-const FEMALE_VOICES = /\b(female|samantha|karen|moira|tessa|victoria|fiona|serena|martha|nicky|kate|susan|zira|aria|jenny|libby|sonia|hazel)\b/i;
-
-function pickVoice(gender: "male" | "female", variant: number) {
-  const english = window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith("en"));
-  const wanted = english.filter((v) => (gender === "male" ? MALE_VOICES : FEMALE_VOICES).test(v.name) && !(gender === "male" ? /female/i : /\bmale\b/i).test(v.name));
-  const pool = wanted.length ? wanted : english;
-  return pool.length ? pool[variant % pool.length] : null;
-}
-
 function speak(text: string, who: "customer" | "chef", customer: Customer) {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  const synth = window.speechSynthesis;
-  synth.cancel();
-  const gender = who === "chef" ? "male" : customer.gender ?? "female";
-  const voice = pickVoice(gender, who === "chef" ? 1 : 0);
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = "en-US";
-  utter.rate = 0.92; // slightly slower for learners
-  // If no gendered voice exists, nudge pitch so male and female characters still sound different.
-  const matched = voice && (gender === "male" ? MALE_VOICES : FEMALE_VOICES).test(voice.name);
-  utter.pitch = matched ? 1 : gender === "male" ? 0.75 : 1.25;
-  if (voice) utter.voice = voice;
-  synth.speak(utter);
+  speakText(text, { gender: who === "chef" ? "male" : customer.gender ?? "female", variant: who === "chef" ? 1 : 0 });
 }
 
 function feedbackStyle(moodChange: number) {
@@ -108,9 +75,10 @@ function feedbackStyle(moodChange: number) {
   return { label: "Could be better", box: "bg-red-50 border-red-300", text: "text-red-700", badge: "bg-red-500" };
 }
 
-export default function DialogueScene({ nodeId, node, customer, customerMood, background = "/assets/food/sushi/5.webp", onChoose, onFinish }: DialogueSceneProps) {
+export default function DialogueScene({ nodeId, node, customer, customerMood, answerMode = "choose", background = "/assets/food/sushi/5.webp", onChoose, onFinish }: DialogueSceneProps) {
   const [typed, setTyped] = useState({ nodeId: "", count: 0 });
-  const [picked, setPicked] = useState<{ nodeId: string; choice: DialogueChoice } | null>(null);
+  const [picked, setPicked] = useState<{ nodeId: string; choice: DialogueChoice; meta: ReplyMeta } | null>(null);
+  const [hint, setHint] = useState<string | null>(null); // node whose choices were revealed in speaking mode
   const [openWord, setOpenWord] = useState<string | null>(null);
   const [voiceOn, setVoiceOn] = useState(true);
   const [showLog, setShowLog] = useState(false);
@@ -118,13 +86,15 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
 
   const typedCount = typed.nodeId === nodeId ? typed.count : 0;
   const isTyping = typedCount < node.text.length;
-  const activePick = picked?.nodeId === nodeId ? picked.choice : null;
+  const activePick = picked?.nodeId === nodeId ? picked : null;
   const choices = useMemo(() => seededShuffle(node.choices ?? [], nodeId + node.text), [node, nodeId]);
+  const speaking = answerMode === "speak";
+  const choicesVisible = !speaking || hint === nodeId;
 
   // Preview the mood change immediately so faces react as soon as the player answers.
-  const previewMood = activePick ? Math.min(100, Math.max(0, customerMood + activePick.moodChange * 25)) : customerMood;
+  const previewMood = activePick ? Math.min(100, Math.max(0, customerMood + activePick.choice.moodChange * 25)) : customerMood;
   const customerExpression = moodToExpression(previewMood);
-  const chefExpression: Expression = activePick && activePick.moodChange > 0 ? "happy" : "neutral";
+  const chefExpression: Expression = activePick && activePick.choice.moodChange > 0 ? "happy" : "neutral";
 
   // Typewriter
   useEffect(() => {
@@ -138,26 +108,36 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
     if (voiceOn) speak(node.text, "customer", customer);
   }, [nodeId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => () => window.speechSynthesis?.cancel(), []);
+  useEffect(() => stopSpeaking, []);
 
   const skipTyping = () => setTyped({ nodeId, count: node.text.length });
 
-  const pick = (choice: DialogueChoice) => {
-    if (activePick) return;
+  // A held or double-pressed key can fire twice before React re-renders: answer and move on once per line.
+  const handled = useRef({ picked: "", advanced: "" });
+
+  const pick = (choice: DialogueChoice, meta: ReplyMeta) => {
+    if (activePick || handled.current.picked === nodeId) return;
+    handled.current.picked = nodeId;
     if (isTyping) skipTyping();
-    setPicked({ nodeId, choice });
+    setPicked({ nodeId, choice, meta });
     setOpenWord(null);
     setLog((l) => [...l, { speaker: "customer", text: node.text }, { speaker: "chef", text: choice.text }]);
+    if (choice.moodChange > 0) sfx.chime();
+    else if (choice.moodChange < 0) sfx.buzz();
+    else sfx.pop();
     if (voiceOn) speak(choice.text, "chef", customer);
   };
 
   const advance = () => {
-    if (activePick) onChoose(activePick);
+    if (!activePick || handled.current.advanced === nodeId) return;
+    handled.current.advanced = nodeId;
+    onChoose(activePick.choice, activePick.meta);
   };
 
-  // Keyboard: 1-9 to answer, Enter/Space to skip text or continue
+  // Keyboard: 1-9 to answer, Enter/Space to skip text or continue (not while typing an answer)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement | null)?.closest?.("input, textarea") || showLog) return;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         if (isTyping) skipTyping();
@@ -166,7 +146,7 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
         return;
       }
       const n = Number(e.key);
-      if (!isTyping && !activePick && n >= 1 && n <= choices.length) pick(choices[n - 1]);
+      if (choicesVisible && !isTyping && !activePick && n >= 1 && n <= choices.length) pick(choices[n - 1], { mode: "choose", hint: speaking });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -199,8 +179,9 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
   };
 
   const openEntry = node.vocab?.find((v) => v.word === openWord) ?? null;
-  const fb = activePick ? feedbackStyle(activePick.moodChange) : null;
-  const delta = activePick ? activePick.moodChange * 25 : 0;
+  const openInfo = openEntry ? VOCAB.get(openEntry.word.toLowerCase()) : undefined;
+  const fb = activePick ? feedbackStyle(activePick.choice.moodChange) : null;
+  const delta = activePick ? activePick.choice.moodChange * 25 : 0;
 
   return (
     <div className="flex flex-col h-screen pt-20 relative overflow-hidden bg-stone-900" onClick={() => setOpenWord(null)}>
@@ -227,7 +208,7 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
                 exit={{ opacity: 0 }}
                 className="absolute top-[12%] left-[75%] w-56 md:w-72 bg-white rounded-2xl rounded-bl-none px-4 py-3 shadow-xl text-sm md:text-base font-bold text-stone-700 z-20"
               >
-                {activePick.text}
+                {activePick.choice.text}
               </motion.div>
             )}
           </AnimatePresence>
@@ -245,7 +226,7 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
         <motion.div initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="relative aspect-[3/4] h-full max-h-[30vh] md:max-h-[40vh] shrink-0">
           {/* Reaction bubble + mood change */}
           <AnimatePresence>
-            {activePick && activePick.moodChange !== 0 && (
+            {activePick && activePick.choice.moodChange !== 0 && (
               <motion.div
                 key={nodeId}
                 initial={{ opacity: 0, scale: 0, y: 20 }}
@@ -256,7 +237,7 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
                 style={{
                   backgroundImage: "url('/assets/food/sushi/7.webp')",
                   backgroundSize: "400% 200%",
-                  backgroundPosition: activePick.moodChange > 0 ? "0% 100%" : "33.333% 100%",
+                  backgroundPosition: activePick.choice.moodChange > 0 ? "0% 100%" : "33.333% 100%",
                 }}
               />
             )}
@@ -276,9 +257,9 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
             className="w-full h-full drop-shadow-[0_20px_20px_rgba(0,0,0,0.4)]"
             style={spriteStyle(customer.spriteColumn, customerExpression)}
             animate={
-              activePick && activePick.moodChange < 0
+              activePick && activePick.choice.moodChange < 0
                 ? { x: [0, -10, 10, -8, 8, 0] }
-                : activePick && activePick.moodChange > 0
+                : activePick && activePick.choice.moodChange > 0
                 ? { y: [0, -18, 0] }
                 : { y: [0, -4, 0] }
             }
@@ -304,7 +285,7 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
                 <Volume2 size={16} /> Listen
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); setVoiceOn((v) => { if (v) window.speechSynthesis?.cancel(); return !v; }); }}
+                onClick={(e) => { e.stopPropagation(); setVoiceOn((v) => { if (v) stopSpeaking(); return !v; }); }}
                 className="p-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 transition-colors"
                 title={voiceOn ? "Turn auto voice off" : "Turn auto voice on"}
               >
@@ -330,10 +311,26 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 className="overflow-hidden shrink-0"
+                onClick={(e) => e.stopPropagation()}
               >
-                <div className="bg-stone-800 text-white rounded-xl px-4 py-3 mb-3 text-sm md:text-base font-medium leading-snug">
-                  <span className="text-orange-300 font-black uppercase text-xs tracking-widest mr-2">{openEntry.word}</span>
-                  {openEntry.meaning}
+                <div className="flex items-center gap-3 bg-stone-800 text-white rounded-xl px-4 py-3 mb-3 text-sm md:text-base font-medium leading-snug">
+                  {openInfo?.ingredient && (
+                    <div className="shrink-0 w-14 h-14 rounded-xl bg-[#f8f0e3] overflow-hidden">
+                      <IngredientPicture id={openInfo.ingredient} className="w-full h-full scale-125" />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-orange-300 font-black uppercase text-xs tracking-widest">{openEntry.word}</span>
+                      {openInfo && <CefrBadge level={openInfo.cefr} />}
+                      {openInfo?.pos && <span className="text-[10px] text-stone-400">{openInfo.pos}</span>}
+                    </div>
+                    {openInfo && <p className="font-mitr text-amber-200">{openInfo.th}</p>}
+                    <p className="text-stone-200">{openEntry.meaning}</p>
+                  </div>
+                  <button onClick={() => speakText(openEntry.word, { rate: 0.8 })} className="shrink-0 p-2 rounded-full bg-white/10 hover:bg-white/20" title="Listen">
+                    <Volume2 size={18} />
+                  </button>
                 </div>
               </motion.div>
             )}
@@ -349,12 +346,18 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
               ) : activePick && fb ? (
                 <motion.div key="feedback" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-3">
                   <div className={`border-2 rounded-2xl p-4 md:p-5 ${fb.box}`}>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className={`text-white text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full ${fb.badge}`}>{fb.label}</span>
                       <span className={`flex items-center gap-1 text-xs font-black uppercase tracking-widest ${fb.text}`}><Lightbulb size={14} /> Language tip</span>
                     </div>
+                    {activePick.meta.heard && (
+                      <p className="font-mitr text-sm text-stone-500 mb-2">
+                        {activePick.meta.mode === "speak" ? "คุณพูดว่า" : "คุณพิมพ์ว่า"} “{activePick.meta.heard}”
+                        {activePick.meta.score !== undefined && <> · ตรงกับคำตอบ {Math.round(activePick.meta.score * 100)}%</>}
+                      </p>
+                    )}
                     <p className={`text-sm md:text-lg font-semibold leading-relaxed ${fb.text}`}>
-                      {activePick.tip ?? (activePick.moodChange > 0 ? "Nice, polite answer!" : "Try to sound more polite and helpful.")}
+                      {activePick.choice.tip ?? (activePick.choice.moodChange > 0 ? "Nice, polite answer!" : "Try to sound more polite and helpful.")}
                     </p>
                   </div>
                   <button
@@ -366,20 +369,33 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
                 </motion.div>
               ) : choices.length > 0 ? (
                 <motion.div key="choices" className="flex flex-col gap-3">
-                  <p className="text-xs font-black uppercase tracking-widest text-stone-400">How do you reply?</p>
-                  {choices.map((choice, idx) => (
-                    <motion.button
-                      key={choice.text}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.08 }}
-                      onClick={() => pick(choice)}
-                      className="bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 hover:border-orange-400 text-left px-5 py-4 rounded-2xl transition-colors hover:shadow-lg font-bold text-stone-700 hover:text-orange-900 text-base md:text-xl flex items-center gap-4 group"
-                    >
-                      <span className="shrink-0 w-8 h-8 rounded-lg bg-white border-2 border-orange-200 group-hover:border-orange-400 text-orange-500 text-sm font-black flex items-center justify-center">{idx + 1}</span>
-                      <span>{choice.text}</span>
-                    </motion.button>
-                  ))}
+                  {speaking && (
+                    <SpeakPanel
+                      key={nodeId}
+                      choices={choices}
+                      hintOpen={choicesVisible}
+                      onHint={() => setHint(nodeId)}
+                      onMatch={(choice, meta) => pick(choice, { ...meta, hint: choicesVisible })}
+                    />
+                  )}
+                  {choicesVisible && (
+                    <>
+                      <p className="text-xs font-black uppercase tracking-widest text-stone-400">{speaking ? "Hint: tap a reply or say it" : "How do you reply?"}</p>
+                      {choices.map((choice, idx) => (
+                        <motion.button
+                          key={choice.text}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.08 }}
+                          onClick={() => pick(choice, { mode: "choose", hint: speaking })}
+                          className="bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 hover:border-orange-400 text-left px-5 py-4 rounded-2xl transition-colors hover:shadow-lg font-bold text-stone-700 hover:text-orange-900 text-base md:text-xl flex items-center gap-4 group"
+                        >
+                          <span className="shrink-0 w-8 h-8 rounded-lg bg-white border-2 border-orange-200 group-hover:border-orange-400 text-orange-500 text-sm font-black flex items-center justify-center">{idx + 1}</span>
+                          <span>{choice.text}</span>
+                        </motion.button>
+                      ))}
+                    </>
+                  )}
                 </motion.div>
               ) : (
                 <motion.button
@@ -427,6 +443,99 @@ export default function DialogueScene({ nodeId, node, customer, customerMood, ba
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+}
+
+// Speaking mode: the learner says (or types) the reply in their own words; the closest reply is used.
+// The replies stay hidden until the learner asks for the hint.
+function SpeakPanel({ choices, hintOpen, onHint, onMatch }: {
+  choices: DialogueChoice[];
+  hintOpen: boolean;
+  onHint: () => void;
+  onMatch: (choice: DialogueChoice, meta: Omit<ReplyMeta, "hint">) => void;
+}) {
+  const [listening, setListening] = useState(false);
+  const [heard, setHeard] = useState("");
+  const [typedText, setTypedText] = useState("");
+  const [message, setMessage] = useState("");
+  const stop = useRef<(() => void) | null>(null);
+  const supported = useMemo(() => canRecognizeSpeech(), []);
+
+  useEffect(() => () => stop.current?.(), []);
+
+  const tryMatch = (texts: string[], mode: "speak" | "type") => {
+    const said = texts.find(Boolean)?.trim() ?? "";
+    if (!said) return;
+    const { match, score } = matchReply(texts.filter(Boolean), choices);
+    if (match) onMatch(match, { mode, heard: said, score });
+    else setMessage(`${mode === "speak" ? "ได้ยินว่า" : "คุณพิมพ์ว่า"} “${said}” ยังไม่ตรงกับคำตอบไหนชัดเจน ลองใหม่อีกครั้ง หรือกดดูตัวเลือก`);
+  };
+
+  const toggleMic = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (listening) {
+      stop.current?.();
+      return;
+    }
+    stopSpeaking();
+    sfx.listen();
+    setMessage("");
+    setHeard("");
+    setListening(true);
+    stop.current = listen({
+      onText: (text, final, alternatives) => {
+        setHeard(text);
+        if (final) tryMatch(alternatives.length ? alternatives : [text], "speak");
+      },
+      onError: (code) => setMessage(SPEECH_ERRORS[code] ?? (code === "aborted" ? "" : "ฟังไม่สำเร็จ ลองอีกครั้ง หรือพิมพ์คำตอบแทน")),
+      onEnd: () => {
+        setListening(false);
+        stop.current = null;
+      },
+    });
+  };
+
+  const submitTyped = (e: React.FormEvent) => {
+    e.preventDefault();
+    tryMatch([typedText], "type");
+  };
+
+  return (
+    <div className="rounded-2xl bg-orange-50 border-2 border-orange-200 p-4" onClick={(e) => e.stopPropagation()}>
+      <p className="font-mitr text-sm text-orange-800 mb-3">
+        <b>พูดตอบเป็นภาษาอังกฤษ</b> ด้วยประโยคที่สุภาพ แล้วระบบจะเลือกคำตอบที่ใกล้เคียงที่สุด
+      </p>
+      <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+        {supported && (
+          <button
+            onClick={toggleMic}
+            className={`shrink-0 flex items-center justify-center gap-2 px-5 py-3 rounded-2xl font-mitr text-white transition-colors ${listening ? "bg-red-500 animate-pulse" : "bg-orange-500 hover:bg-orange-600 shadow-[0_5px_0_#9a3412]"}`}
+          >
+            {listening ? <MicOff size={20} /> : <Mic size={20} />}
+            {listening ? "กำลังฟัง… กดเพื่อหยุด" : "กดแล้วพูด"}
+          </button>
+        )}
+        <form onSubmit={submitTyped} className="flex-1 flex gap-2">
+          <input
+            value={typedText}
+            onChange={(e) => setTypedText(e.target.value)}
+            placeholder={supported ? "หรือพิมพ์คำตอบภาษาอังกฤษ…" : "พิมพ์คำตอบภาษาอังกฤษ…"}
+            className="flex-1 min-w-0 rounded-xl border-2 border-orange-200 focus:border-orange-400 focus:outline-none px-3 py-2.5 bg-white text-stone-700"
+          />
+          <button type="submit" className="shrink-0 p-3 rounded-xl bg-white border-2 border-orange-200 text-orange-600 hover:bg-orange-100" title="Send">
+            <SendHorizontal size={20} />
+          </button>
+        </form>
+      </div>
+      {heard && listening && <p className="mt-2 font-semibold text-stone-500">“{heard}”</p>}
+      {!supported && <p className="mt-2 font-mitr text-xs text-stone-500">เบราว์เซอร์นี้ไม่รองรับการพูด (ใช้ Chrome หรือ Edge ได้) พิมพ์คำตอบ หรือดูตัวเลือกแทน</p>}
+      {message && <p className="mt-2 font-mitr text-sm text-red-600">{message}</p>}
+      {!hintOpen && (
+        <button onClick={onHint} className="mt-3 flex items-center gap-1.5 font-mitr text-sm text-stone-500 hover:text-orange-700">
+          <Eye size={16} /> ดูตัวเลือกคำตอบ (ตัวช่วย)
+        </button>
+      )}
     </div>
   );
 }

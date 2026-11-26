@@ -1,101 +1,107 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, LogOut } from "lucide-react";
 import { useGameStore } from "@/lib/store";
-import { ChevronRight } from "lucide-react";
+import { useAuth } from "@/lib/auth";
+import { useHydrated } from "@/lib/useHydrated";
 
 const AVATARS = [
-  "/assets/avatars/avatar1.webp", 
-  "/assets/avatars/avatar2.webp", 
+  "/assets/avatars/avatar1.webp",
+  "/assets/avatars/avatar2.webp",
   "/assets/avatars/avatar3.webp"
 ];
 
 export default function ProfileScreen() {
+  // The card starts from what this browser saved, so it waits until that has been read.
+  const hydrated = useHydrated();
+  const { ready } = useAuth();
+  if (!hydrated || !ready) return <div className="min-h-screen bg-stone-900" />;
+  return <IdCard />;
+}
+
+function IdCard() {
   const router = useRouter();
   const { profile, updateProfile } = useGameStore();
-  
+  const { user, saveProfile, signOut } = useAuth();
+
   const [name, setName] = useState(profile.name || "");
+  const [classroom, setClassroom] = useState(profile.classroom || "");
   const [avatarIndex, setAvatarIndex] = useState(() => {
     const idx = AVATARS.indexOf(profile.avatar.face);
     return idx !== -1 ? idx : 0;
   });
   const [error, setError] = useState("");
   const [isApproved, setIsApproved] = useState(false);
-  const [currentDate, setCurrentDate] = useState("LOADING...");
-
-  useEffect(() => {
-    const today = new Date();
-    // Format: DD-MM-YYYY-[Random] for better readability (e.g., 16-09-2026-4821)
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    setCurrentDate(`${dd}-${mm}-${yyyy}-${randomSuffix}`);
-  }, []);
+  const idNumber = user ? user.id.slice(0, 8).toUpperCase() : "GUEST";
 
   const handleAvatarClick = () => {
     if (isApproved) return;
     setAvatarIndex((prev) => (prev + 1) % AVATARS.length);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isApproved) return;
-    
+
     if (!name.trim()) {
       setError("Name required!");
       return;
     }
-    
+
     setError("");
     setIsApproved(true);
-    
+    const fields = { name: name.trim(), classroom: classroom.trim(), avatar: { ...profile.avatar, face: AVATARS[avatarIndex] } };
+    updateProfile(fields);
+    const saving = saveProfile({ display_name: fields.name, classroom: fields.classroom, avatar: fields.avatar.face });
+
     // Play stamp animation, wait, then navigate
-    setTimeout(() => {
-      updateProfile({ 
-        name: name.trim(),
-        avatar: { ...profile.avatar, face: AVATARS[avatarIndex] }
-      });
-      router.push("/select");
-    }, 1500);
+    const [problem] = await Promise.all([saving, new Promise((r) => setTimeout(r, 1500))]);
+    if (problem) {
+      setError("บันทึกไม่สำเร็จ ลองอีกครั้ง");
+      setIsApproved(false);
+      return;
+    }
+    router.push("/menu");
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative bg-stone-900 overflow-hidden font-sans">
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <img 
-          src="/assets/restaurant.webp" 
-          alt="Background" 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/restaurant.webp"
+          alt="Background"
           className="object-cover w-full h-full opacity-60 blur-md brightness-50"
         />
         <div className="absolute inset-0 bg-stone-900/60 mix-blend-overlay" />
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 50, rotate: -3 }}
         animate={{ opacity: 1, y: 0, rotate: -1 }}
         transition={{ type: "spring", bounce: 0.4, duration: 1 }}
         className="relative z-10"
       >
         {/* Horizontal ID Card - Culinary Warm Theme */}
-        <div className="w-full max-w-[540px] bg-[#FDFCFB] rounded-[24px] shadow-2xl relative pt-10 pb-8 px-8 border border-stone-200"
+        <div className="w-full max-w-[540px] bg-[#FDFCFB] rounded-[24px] shadow-2xl relative pt-10 pb-8 px-6 sm:px-8 border border-stone-200"
              style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0,0,0,0.02)' }}>
-          
+
           {/* Hole Punch */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-3 bg-stone-900/80 rounded-full shadow-inner border border-stone-800" />
-          
+
           {/* APPROVED STAMP OVERLAY */}
           <AnimatePresence>
             {isApproved && (
               <motion.div
                 initial={{ scale: 5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 0.9 }}
-                transition={{ 
-                  type: "spring", 
-                  damping: 15, 
+                transition={{
+                  type: "spring",
+                  damping: 15,
                   stiffness: 400,
                   duration: 0.2
                 }}
@@ -120,20 +126,21 @@ export default function ProfileScreen() {
             )}
           </AnimatePresence>
 
-          <form onSubmit={handleSubmit} className="flex gap-8 h-full mt-4 relative z-10">
-            
+          <form onSubmit={handleSubmit} className="flex gap-5 sm:gap-8 h-full mt-4 relative z-10">
+
             {/* Left Side: Photo & Barcode */}
-            <div className="w-40 flex flex-col gap-6 shrink-0 mt-2">
-              
+            <div className="w-28 sm:w-40 flex flex-col gap-6 shrink-0 mt-2">
+
               {/* Photo Box */}
-              <div 
+              <div
                 onClick={handleAvatarClick}
-                className={`w-full h-44 bg-amber-500 rounded-2xl flex items-end justify-center shadow-inner relative border-2 border-amber-600 ${isApproved ? 'opacity-80' : 'cursor-pointer group'}`}
+                className={`w-full h-36 sm:h-44 bg-amber-500 rounded-2xl flex items-end justify-center shadow-inner relative border-2 border-amber-600 ${isApproved ? 'opacity-80' : 'cursor-pointer group'}`}
               >
                 {/* Image standing at the bottom, scaled up to massively pop out of the top */}
-                <img 
-                  src={AVATARS[avatarIndex]} 
-                  alt="Chef Avatar" 
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={AVATARS[avatarIndex]}
+                  alt="Chef Avatar"
                   className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[170%] max-w-none object-contain select-none drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-110 origin-bottom z-30"
                 />
                 {!isApproved && (
@@ -142,7 +149,7 @@ export default function ProfileScreen() {
                   </div>
                 )}
               </div>
-              
+
               {/* Fake Barcode */}
               <div className="text-center">
                 <div className="text-[8px] font-bold tracking-widest text-stone-400 mb-1">KITCHEN CODE</div>
@@ -155,8 +162,8 @@ export default function ProfileScreen() {
             </div>
 
             {/* Right Side: Details */}
-            <div className={`flex-1 flex flex-col justify-between pt-2 ${isApproved ? 'opacity-80 pointer-events-none' : ''}`}>
-              
+            <div className={`flex-1 min-w-0 flex flex-col justify-between pt-2 ${isApproved ? 'opacity-80 pointer-events-none' : ''}`}>
+
               {/* Header */}
               <div className="text-left mb-2 border-b-2 border-amber-100 pb-2">
                 <span className="text-[10px] font-bold tracking-widest uppercase text-stone-400 block mb-1">TEAM</span>
@@ -190,18 +197,25 @@ export default function ProfileScreen() {
                 <div className="flex gap-4">
                   <div className="flex-1">
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-orange-700/70 mb-0.5">
-                      PRONOUNS
+                      ROLE
                     </label>
                     <div className="font-bold text-sm text-stone-700 uppercase">CHEF</div>
                     <div className="h-[2px] w-full bg-stone-200 mt-0.5" />
                   </div>
 
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-orange-700/70 mb-0.5">
-                      SECTION
+                      CLASS
                     </label>
-                    <div className="font-bold text-sm text-stone-700 uppercase">KITCHEN</div>
-                    <div className="h-[2px] w-full bg-stone-200 mt-0.5" />
+                    <input
+                      type="text"
+                      value={classroom}
+                      readOnly={isApproved}
+                      onChange={(e) => setClassroom(e.target.value)}
+                      placeholder="ม.4/1"
+                      maxLength={20}
+                      className="w-full bg-transparent border-b-2 border-stone-200 focus:outline-none focus:border-orange-500 font-bold text-sm text-stone-700 p-0 h-6"
+                    />
                   </div>
                 </div>
 
@@ -209,18 +223,18 @@ export default function ProfileScreen() {
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-orange-700/70 mb-0.5">
                     ID NUMBER
                   </label>
-                  <div className="font-bold text-sm text-orange-600 tracking-[0.2em]">{currentDate}</div>
+                  <div className="font-bold text-sm text-orange-600 tracking-[0.2em]">{idNumber}</div>
                   <div className="h-[2px] w-full bg-stone-200 mt-0.5" />
                 </div>
               </div>
 
               {/* Footer Text */}
               <div className="mt-6 text-[9px] font-bold text-stone-400 text-left uppercase tracking-widest pt-2">
-                This card is property of the Restaurant.
+                {user ? user.email : "This card is property of the Restaurant."}
               </div>
 
             </div>
-            
+
             {/* Hidden Submit Button */}
             <button type="submit" id="submit-profile" className="hidden" />
           </form>
@@ -232,19 +246,24 @@ export default function ProfileScreen() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="mt-8 z-10"
+        className="mt-8 z-10 flex flex-col items-center gap-3"
       >
-        <label 
-          htmlFor="submit-profile" 
+        <label
+          htmlFor="submit-profile"
           className={`group flex items-center justify-center gap-2 px-10 py-4 text-white rounded-full font-black text-xl tracking-widest uppercase transition-all ${
-            isApproved 
-              ? 'bg-stone-500 cursor-not-allowed shadow-[0_4px_0_#57534e] translate-y-1' 
+            isApproved
+              ? 'bg-stone-500 cursor-not-allowed shadow-[0_4px_0_#57534e] translate-y-1'
               : 'bg-orange-600 cursor-pointer shadow-[0_8px_0_#9a3412] hover:translate-y-1 hover:shadow-[0_4px_0_#9a3412] active:translate-y-2 active:shadow-none'
           }`}
         >
           {isApproved ? 'PROCESSING...' : 'ENTER KITCHEN'}
           {!isApproved && <ChevronRight size={26} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />}
         </label>
+        {user && (
+          <button onClick={() => signOut().then(() => router.push("/login"))} className="flex items-center gap-2 text-stone-300 hover:text-white font-mitr text-sm">
+            <LogOut size={16} /> ออกจากระบบ
+          </button>
+        )}
       </motion.div>
     </div>
   );

@@ -45,7 +45,13 @@
         "size": "300% 200%",
         "position": "50% 100%"
       }
-    }
+    },
+    "answerMode": "choose",
+    "cefr": "A1-A2",
+    "grammar": [
+      "would-like",
+      "recommend"
+    ]
   },
   {
     "id": "r2",
@@ -87,6 +93,12 @@
         "gender": "female",
         "dialogue": "r2-lucia"
       }
+    ],
+    "answerMode": "speak",
+    "cefr": "A2",
+    "grammar": [
+      "would-like",
+      "polite-requests"
     ]
   },
   {
@@ -129,6 +141,14 @@
         "gender": "female",
         "dialogue": "r3-mai"
       }
+    ],
+    "answerMode": "speak",
+    "cefr": "A2-B1",
+    "grammar": [
+      "recommend",
+      "taste-adjectives",
+      "linking",
+      "future-will"
     ]
   },
   {
@@ -171,6 +191,13 @@
         "gender": "female",
         "dialogue": "r4-chloe"
       }
+    ],
+    "answerMode": "speak",
+    "cefr": "B1",
+    "grammar": [
+      "polite-requests",
+      "passive-food",
+      "linking"
     ]
   },
   {
@@ -213,6 +240,13 @@
         "gender": "male",
         "dialogue": "r5-hank"
       }
+    ],
+    "answerMode": "speak",
+    "cefr": "B1-B2",
+    "grammar": [
+      "comparing",
+      "apologizing",
+      "future-will"
     ]
   }
 ]

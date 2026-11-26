@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# vocabulary bank (Oxford 3000/5000 + Cambridge B1 lists): kept locally, not published
+คลังคำศัพท์*.xlsx
 
 # vercel
 .vercel

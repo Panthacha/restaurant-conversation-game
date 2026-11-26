@@ -8,10 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "optimize-assets": "node scripts/optimize_assets.mjs",
-    "art": "node scripts/extract_art.mjs && node scripts/optimize_assets.mjs"
+    "art": "node scripts/extract_art.mjs && node scripts/optimize_assets.mjs",
+    "vocab-report": "node scripts/vocab_report.mjs"
   },
   "dependencies": {
     "@imgly/background-removal-node": "^1.4.5",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.3",
     "clsx": "^2.1.1",
     "framer-motion": "^13.3.0",
     "lucide-react": "^1.46.0",

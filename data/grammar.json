@@ -1,0 +1,92 @@
+[
+  {
+    "id": "would-like",
+    "title": "Would you like…? / I'd like…",
+    "th": "การเสนอและการสั่งอาหารอย่างสุภาพ",
+    "cefr": "A1",
+    "levels": ["r1", "r2"],
+    "explain": "ใช้ Would you like + คำนาม/to + กริยา เพื่อเสนอสิ่งต่าง ๆ ให้ลูกค้าอย่างสุภาพ และลูกค้าใช้ I'd like (= I would like) แทน I want ซึ่งฟังดูห้วนกว่า",
+    "patterns": ["Would you like + noun?", "Would you like to + verb?", "I'd like + noun, please."],
+    "examples": ["Would you like some green tea?", "Would you like to try our special set?", "I'd like the salmon nigiri, please."]
+  },
+  {
+    "id": "recommend",
+    "title": "Giving recommendations",
+    "th": "การแนะนำเมนู",
+    "cefr": "A2",
+    "levels": ["r1", "r3"],
+    "explain": "ใช้ I recommend… / I'd recommend… หรือ If you like X, I'd recommend Y เพื่อแนะนำอาหารให้ตรงกับความชอบของลูกค้า ควรบอกเหตุผลด้วยคำคุณศัพท์ เช่น fresh, popular, delicious",
+    "patterns": ["I'd recommend + noun.", "If you like + noun, I'd recommend + noun.", "Our + noun + is very popular."],
+    "examples": ["I'd recommend the Salmon Nigiri Set.", "If you love strong flavors, I'd recommend our Som Tam Poo.", "Our pancakes are very popular."]
+  },
+  {
+    "id": "polite-requests",
+    "title": "Could you…? / Would it be possible…?",
+    "th": "การขอร้องอย่างสุภาพ",
+    "cefr": "A2",
+    "levels": ["r2", "r4", "r5"],
+    "explain": "ระดับความสุภาพจากน้อยไปมาก: Can you…? → Could you…? → Would it be possible to…? เมื่อตอบรับคำขอ ใช้ Of course / Certainly / I'd be happy to…",
+    "patterns": ["Could you + verb?", "Would it be possible to + verb?", "I'd be happy to + verb."],
+    "examples": ["Could you hold the lettuce?", "Would it be possible to add a candle?", "Of course, I'd be happy to add a candle."]
+  },
+  {
+    "id": "taste-adjectives",
+    "title": "Describing taste",
+    "th": "การบรรยายรสชาติอาหาร",
+    "cefr": "A2",
+    "levels": ["r3", "r4"],
+    "explain": "ใช้ It tastes + คำคุณศัพท์ หรือ It's + คำคุณศัพท์ เพื่อบอกรสชาติ คำที่ใช้บ่อย: sweet (หวาน), sour (เปรี้ยว), salty (เค็ม), spicy (เผ็ด), mild (รสอ่อน) ใช้ at the same time เมื่อมีหลายรสพร้อมกัน",
+    "patterns": ["It tastes + adjective.", "It's + adjective + and + adjective.", "adjective, adjective and adjective at the same time"],
+    "examples": ["It tastes salty, sour and spicy at the same time.", "The berries are slightly sour.", "I can make it mild with one chili."]
+  },
+  {
+    "id": "linking",
+    "title": "but / so / because",
+    "th": "คำเชื่อมประโยค",
+    "cefr": "A2",
+    "levels": ["r3", "r4"],
+    "explain": "but ใช้เชื่อมความที่ขัดแย้งกัน, so ใช้บอกผลลัพธ์, because ใช้บอกเหตุผล การเชื่อมประโยคทำให้คำตอบยาวขึ้นและฟังเป็นธรรมชาติ",
+    "patterns": ["clause, but clause", "clause, so clause", "clause because clause"],
+    "examples": ["The macarons are sweet, but the berries are slightly sour.", "We serve breakfast until eleven, so you have plenty of time.", "We cut them fresh, so they taste much better."]
+  },
+  {
+    "id": "future-will",
+    "title": "I'll… / It'll be ready…",
+    "th": "การสัญญาและการบอกเวลา (will)",
+    "cefr": "A2",
+    "levels": ["r3", "r4", "r5"],
+    "explain": "ใช้ I'll (= I will) + กริยา เมื่อสัญญาว่าจะทำบางอย่างให้ลูกค้า และใช้ It'll be ready in + เวลา เพื่อบอกว่าอาหารจะเสร็จเมื่อไร",
+    "patterns": ["I'll make sure + clause.", "It'll be ready in about + time.", "I'll + verb + for you."],
+    "examples": ["I'll make sure there are no peanuts in your food.", "They'll be ready in about ten minutes.", "I'll cook a fresh batch just for you."]
+  },
+  {
+    "id": "passive-food",
+    "title": "is made of / is served with",
+    "th": "การบอกส่วนประกอบและวิธีเสิร์ฟ (passive)",
+    "cefr": "B1",
+    "levels": ["r4", "r5"],
+    "explain": "ใช้รูป be + past participle เมื่อสนใจตัวอาหารมากกว่าคนทำ เช่น is made of (ทำจาก), is served with (เสิร์ฟพร้อมกับ), comes with (มาพร้อมกับ)",
+    "patterns": ["noun + is/are made of + ingredients", "noun + is/are served with + noun", "noun + comes with + noun"],
+    "examples": ["The macarons are made of almond flour, egg whites and sugar.", "They're served with butter and maple syrup.", "It comes with a grilled beef patty and melted cheese."]
+  },
+  {
+    "id": "comparing",
+    "title": "Comparatives and superlatives",
+    "th": "การเปรียบเทียบ",
+    "cefr": "A2",
+    "levels": ["r5"],
+    "explain": "ใช้ more/less + คำนาม + than หรือ คำคุณศัพท์ -er than เพื่อเปรียบเทียบสองสิ่ง และใช้ the most / the -est เพื่อบอกว่าดีที่สุดในกลุ่ม",
+    "patterns": ["less/more + noun + than + noun", "adjective-er than", "the most + adjective + noun"],
+    "examples": ["Our homemade sauce has less salt than ketchup.", "Fresh fries taste much better.", "Our Classic Cheeseburger is the most popular dish we serve."]
+  },
+  {
+    "id": "apologizing",
+    "title": "Apologizing and handling complaints",
+    "th": "การขอโทษและรับมือคำร้องเรียน",
+    "cefr": "B1",
+    "levels": ["r3", "r5"],
+    "explain": "เมื่อลูกค้าไม่พอใจ ให้ 1) ขอโทษ (I'm sorry to hear that / I apologize) 2) ยอมรับ (You're right) 3) บอกว่าจะแก้ไขอย่างไร (I'll…) ห้ามโทษคนอื่นหรือเถียงลูกค้า",
+    "patterns": ["I'm sorry to hear that.", "You're right, and I apologize.", "I'm sorry. I'll + verb."],
+    "examples": ["I'm sorry to hear that. I'll make sure your fries come out hot and crispy today.", "You're right, and I apologize. I'll cook a fresh batch just for you.", "Sorry, that came out wrong."]
+  }
+]
