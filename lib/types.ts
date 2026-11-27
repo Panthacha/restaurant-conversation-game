@@ -137,3 +137,10 @@ export interface GrammarPoint {
   patterns: string[];
   examples: string[];
 }
+
+// One AI grammar check of a learner's own sentence (app/api/check-grammar).
+export interface GrammarCheckResult {
+  correct: boolean;
+  corrected: string;
+  errors: { issue: string; explainTh: string }[];
+}

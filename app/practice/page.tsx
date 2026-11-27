@@ -3,15 +3,17 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { BookA, Image as ImageIcon, Headphones, MessagesSquare, PenLine, RotateCcw, Star } from "lucide-react";
+import { BookA, Image as ImageIcon, Headphones, MessagesSquare, PenLine, RotateCcw, Star, Sparkles, Volume2 } from "lucide-react";
 import AppShell, { Card } from "@/components/AppShell";
 import QuizRunner, { type QuizAnswer } from "@/components/QuizRunner";
 import { useContent } from "@/lib/content";
 import { makePractice, PRACTICE_KINDS, type PracticeKind } from "@/lib/quiz";
 import { savePractice } from "@/lib/records";
 import { sfx } from "@/lib/sfx";
+import { speak } from "@/lib/tts";
+import { checkGrammar } from "@/lib/grammarCheck";
 import restaurantsData from "@/data/restaurants.json";
-import type { Question } from "@/lib/types";
+import type { GrammarCheckResult, Question } from "@/lib/types";
 
 const ICONS: Record<PracticeKind, typeof BookA> = { meaning: BookA, picture: ImageIcon, listening: Headphones, reply: MessagesSquare, grammar: PenLine };
 const POINTS_EACH = 10;
@@ -135,6 +137,89 @@ function PracticeScreen() {
           );
         })}
       </div>
+
+      <h2 className="font-mitr text-lg text-orange-800 mb-2 mt-8">3. หรือลองเขียนประโยคเอง</h2>
+      <AIGrammarCheck />
     </AppShell>
+  );
+}
+
+// Advisor feedback 6.1: a free-text sentence checked by an LLM, instead of a fixed-choice question.
+function AIGrammarCheck() {
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<GrammarCheckResult | null>(null);
+  const [error, setError] = useState("");
+
+  const check = async () => {
+    const trimmed = text.trim();
+    if (!trimmed || loading) return;
+    setLoading(true);
+    setError("");
+    setResult(null);
+    const { result: r, error: e } = await checkGrammar(trimmed);
+    setLoading(false);
+    if (e) setError(e);
+    else {
+      setResult(r);
+      sfx[r?.correct ? "success" : "pop"]();
+    }
+  };
+
+  return (
+    <Card>
+      <div className="flex items-center gap-2 mb-1">
+        <Sparkles size={20} className="text-violet-500" />
+        <p className="font-luckiest-guy text-xl tracking-wide text-stone-800">AI ตรวจประโยค</p>
+      </div>
+      <p className="font-mitr text-sm text-stone-500 mb-4">พิมพ์ประโยคภาษาอังกฤษของคุณเอง (เช่นที่จะใช้คุยกับลูกค้า) แล้วให้ AI ช่วยตรวจไวยากรณ์</p>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={3}
+        maxLength={300}
+        placeholder="e.g. Can I have a menu, please?"
+        className="w-full rounded-2xl border-2 border-stone-200 focus:border-violet-400 focus:outline-none px-4 py-3 font-sans text-stone-800 mb-3"
+      />
+      <button
+        onClick={check}
+        disabled={!text.trim() || loading}
+        className="flex items-center gap-2 font-mitr bg-violet-600 hover:bg-violet-700 disabled:bg-stone-300 text-white px-6 py-3 rounded-2xl shadow-[0_4px_0_#4c1d95] disabled:shadow-none transition-colors"
+      >
+        {loading ? "กำลังตรวจ…" : "ตรวจไวยากรณ์"}
+      </button>
+
+      {error && <p className="font-mitr text-sm text-red-600 mt-4">{error}</p>}
+
+      {result && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`mt-4 rounded-2xl border-2 p-4 ${result.correct ? "bg-green-50 border-green-200" : "bg-amber-50 border-amber-200"}`}
+        >
+          {result.correct ? (
+            <p className="font-mitr text-green-700 font-semibold">ถูกต้องแล้ว เก่งมาก! 🎉</p>
+          ) : (
+            <>
+              <p className="font-mitr text-amber-800 font-semibold mb-2">เจอจุดที่ควรแก้ {result.errors.length} จุด:</p>
+              <ul className="space-y-1.5 mb-3">
+                {result.errors.map((err, i) => (
+                  <li key={i} className="text-sm leading-relaxed">
+                    <span className="font-bold text-amber-700">{err.issue}</span>
+                    <span className="font-mitr text-stone-600"> — {err.explainTh}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-2 bg-white rounded-xl border border-amber-200 px-3 py-2">
+                <p className="flex-1 font-semibold text-stone-700">{result.corrected}</p>
+                <button onClick={() => speak(result.corrected)} className="shrink-0 p-2 rounded-full bg-amber-100 text-amber-700 hover:bg-amber-200" title="Listen">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </>
+          )}
+        </motion.div>
+      )}
+    </Card>
   );
 }
