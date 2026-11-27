@@ -31,17 +31,16 @@ export default function MenuScreen() {
   const postOpen = levelsDone === LEVEL_ORDER.length;
 
   const items = [
-    { href: "/select", icon: UtensilsCrossed, title: "PLAY", th: "เล่นเกม: รับออเดอร์และทำอาหาร", note: `${stars}/${LEVEL_ORDER.length * 3} ดาว · ผ่าน ${levelsDone}/${LEVEL_ORDER.length} ร้าน`, tone: "from-orange-400 to-amber-400", big: true },
-    { href: "/learn", icon: BookOpen, title: "LESSONS", th: "บทเรียน: คำศัพท์และไวยากรณ์", note: "อ่านก่อนเล่นแต่ละร้าน", tone: "from-sky-400 to-cyan-400" },
-    { href: "/practice", icon: Dumbbell, title: "PRACTICE", th: "ฝึกฝน: เกมคำศัพท์ การฟัง บทสนทนา", note: `ฝึกไปแล้ว ${records.practice.length} รอบ`, tone: "from-emerald-400 to-lime-400" },
-    { href: "/dashboard", icon: LayoutDashboard, title: "MY PROGRESS", th: "ความก้าวหน้าของฉัน", note: "คะแนน พัฒนาการ และกิจกรรมที่ทำแล้ว", tone: "from-violet-400 to-fuchsia-400" },
-    { href: "/ranking", icon: Trophy, title: "RANKING", th: "อันดับคะแนน", note: user ? "เทียบกับเพื่อน ๆ" : "ต้องเข้าสู่ระบบ", tone: "from-yellow-400 to-orange-400" },
+    { href: "/learn", icon: BookOpen, title: "LESSONS", th: "บทเรียน: คำศัพท์และไวยากรณ์", note: "อ่านก่อนเล่นแต่ละร้าน", card: "bg-amber-600 shadow-[0_8px_0_#78350f] hover:shadow-[0_4px_0_#78350f]" },
+    { href: "/practice", icon: Dumbbell, title: "PRACTICE", th: "ฝึกฝน: เกมคำศัพท์ การฟัง บทสนทนา", note: `ฝึกไปแล้ว ${records.practice.length} รอบ`, card: "bg-emerald-600 shadow-[0_8px_0_#065f46] hover:shadow-[0_4px_0_#065f46]" },
+    { href: "/dashboard", icon: LayoutDashboard, title: "MY PROGRESS", th: "ความก้าวหน้าของฉัน", note: "คะแนน พัฒนาการ และกิจกรรมที่ทำแล้ว", card: "bg-violet-600 shadow-[0_8px_0_#4c1d95] hover:shadow-[0_4px_0_#4c1d95]" },
+    { href: "/ranking", icon: Trophy, title: "RANKING", th: "อันดับคะแนน", note: user ? "เทียบกับเพื่อน ๆ" : "ต้องเข้าสู่ระบบ", card: "bg-amber-500 shadow-[0_8px_0_#92400e] hover:shadow-[0_4px_0_#92400e]" },
   ];
 
   return (
     <AppShell title="MAIN MENU" th={`สวัสดี เชฟ${profile.name ? ` ${profile.name}` : ""}! วันนี้จะฝึกอะไรดี`} back="/" backLabel="หน้าแรก">
       {configured && !user && (
-        <Link href="/login" className="mb-5 flex items-center gap-3 bg-white border-2 border-sky-200 rounded-2xl p-4 font-mitr text-sky-800 hover:bg-sky-50">
+        <Link href="/login" className="mb-5 flex items-center gap-3 bg-orange-50 border-2 border-orange-200 rounded-2xl p-4 font-mitr text-orange-800 hover:bg-orange-100 transition-colors">
           <LogIn size={22} className="shrink-0" />
           <span className="flex-1">คุณกำลังเล่นแบบผู้เยี่ยมชม <b>เข้าสู่ระบบด้วย Google</b> เพื่อบันทึกคะแนนและขึ้นอันดับ</span>
           <ArrowRight size={20} />
@@ -70,19 +69,44 @@ export default function MenuScreen() {
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map(({ href, icon: Icon, title, th, note, tone, big }, i) => (
-          <motion.div key={href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} className={big ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}>
-            <Link href={href} className="group h-full flex flex-col bg-white rounded-[1.75rem] border-4 border-white shadow-[0_8px_0_#F3E3CF] hover:shadow-[0_4px_0_#F3E3CF] hover:translate-y-1 transition-all overflow-hidden">
-              <div className={`bg-gradient-to-br ${tone} p-5 flex items-center gap-4 ${big ? "lg:flex-1 lg:flex-col lg:justify-center lg:py-10" : ""}`}>
-                <Icon size={big ? 56 : 36} className="text-white drop-shadow-md shrink-0" strokeWidth={2.4} />
-                <span className="font-luckiest-guy text-2xl md:text-3xl text-white tracking-wider drop-shadow-[0_2px_0_rgba(0,0,0,0.25)]">{title}</span>
+        {/* PLAY: the hero tile, dressed as the restaurant's own signboard */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
+          <Link
+            href="/select"
+            className="group relative flex h-full min-h-[260px] flex-col justify-end overflow-hidden rounded-[1.75rem] border-4 border-white shadow-[0_8px_0_#9a3412] transition-all hover:translate-y-1 hover:shadow-[0_4px_0_#9a3412]"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style={{ backgroundImage: "url('/assets/restaurant.webp')" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/10" />
+            <div className="relative z-10 flex flex-col gap-2 p-5 md:p-6">
+              <div className="mb-1 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-white bg-orange-500 shadow-lg transition-transform group-hover:rotate-6">
+                <UtensilsCrossed size={30} className="text-white" strokeWidth={2.4} />
               </div>
-              <div className="p-4 flex-1 flex flex-col justify-between gap-2">
+              <span className="font-luckiest-guy text-4xl tracking-wider text-white drop-shadow-[0_3px_0_rgba(0,0,0,0.5)]">PLAY</span>
+              <p className="font-mitr text-white/90">เล่นเกม: รับออเดอร์และทำอาหาร</p>
+              <p className="mt-1 flex items-center gap-1 font-mitr text-xs text-amber-300">
+                <Star size={12} className="fill-amber-300" />
+                {stars}/{LEVEL_ORDER.length * 3} ดาว · ผ่าน {levelsDone}/{LEVEL_ORDER.length} ร้าน
+              </p>
+            </div>
+          </Link>
+        </motion.div>
+
+        {items.map(({ href, icon: Icon, title, th, note, card }, i) => (
+          <motion.div key={href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: (i + 1) * 0.06 }}>
+            <Link href={href} className={`group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border-4 border-white transition-all hover:translate-y-1 ${card}`}>
+              <div className="relative flex items-center gap-4 p-5">
+                <div className="absolute -right-4 -top-6 h-20 w-20 rounded-full bg-white/10" />
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-white/40 bg-white/20 backdrop-blur-sm transition-transform group-hover:rotate-6">
+                  <Icon size={30} className="text-white drop-shadow-md" strokeWidth={2.4} />
+                </div>
+                <span className="font-luckiest-guy text-2xl tracking-wider text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.3)] md:text-3xl">{title}</span>
+              </div>
+              <div className="flex flex-1 flex-col justify-between gap-2 bg-white p-4">
                 <p className="font-mitr text-stone-700">{th}</p>
-                <p className="font-mitr text-xs text-stone-400 flex items-center gap-1">
-                  {href === "/select" && <Star size={12} className="text-yellow-500 fill-yellow-500" />}
-                  {note}
-                </p>
+                <p className="flex items-center gap-1 font-mitr text-xs text-stone-400">{note}</p>
               </div>
             </Link>
           </motion.div>
